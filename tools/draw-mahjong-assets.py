@@ -7,7 +7,9 @@ import xml.etree.ElementTree as ET
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'assets' / 'tiles'
 GLYPHS = json.loads((OUT / 'glyphs.json').read_text(encoding='utf-8-sig'))
+WAN_PATHS = json.loads((OUT / 'wan-calligraphy.json').read_text(encoding='utf-8'))['components']
 NUMBERS = '一二三四五六七八九'
+WAN_NUMBERS = '一二三四伍六七八九'
 GREEN, RED, INK = '#315b40', '#a8332b', '#25312b'
 BAMBOO_WIDTH = 23
 SVG_NS = 'http://www.w3.org/2000/svg'
@@ -32,6 +34,34 @@ def label(text, x, y, size=21, color=INK):
 
 def shell():
     return '<rect x="5" y="13" width="150" height="198" rx="11" fill="#d8d2bc"/><rect x="5" y="5" width="150" height="198" rx="11" fill="#fffdf5" stroke="#cecbb9" stroke-width="1.5"/><rect x="10" y="10" width="140" height="188" rx="7" fill="none" stroke="#ffffff" stroke-width="1.5"/>'
+
+
+# Visible ink bounds in the160x216 face, balanced against the full reference row.
+# Short numerals sit lower; complex numerals retain their natural taller shapes.
+WAN_NUMERAL_BOXES = {
+    1: (32, 51, 103, 20),
+    2: (30, 41.82926508, 104, 44.02301955),
+    3: (33.5, 35.64756658, 98, 52.75404499),
+    4: (30.4, 36.48, 97.2, 47.52),
+    5: (29.791, 35.68, 95.418, 58.32),
+    6: (36.88001306, 31.70000011, 86.67060898, 64.80000007),
+    7: (40, 34.2, 82, 58.8),
+    8: (32.2704, 35.08, 97.4592, 52.92),
+    9: (40, 34.15, 86, 59.85),
+}
+WAN_CHARACTER_BOX = (24.5, 93.5, 108, 95.5)
+
+
+def calligraphy_wan(rank):
+    result = '<g data-representation="supplied-calligraphy-wan">'
+    for key, char in ((f'num-{rank}', WAN_NUMBERS[rank-1]), ('char-wan', '萬')):
+        x, y, width, height = WAN_CHARACTER_BOX if key == 'char-wan' else WAN_NUMERAL_BOXES[rank]
+        for item in WAN_PATHS[key]:
+            bx, by, bw, bh = item['bounds']
+            transform = f'translate({x} {y}) scale({width/bw:.8f} {height/bh:.8f}) translate({-bx} {-by})'
+            fill_rule = f' fill-rule="{item["fill-rule"]}"' if 'fill-rule' in item else ''
+            result += f'<path data-character="{char}" transform="{transform}" d="{item["d"]}" fill="{item["fill"]}"{fill_rule}/>'
+    return result + '</g>'
 
 
 def bamboo(x, y, height, color=GREEN, rotation=0, index=0, hollow=True, width=BAMBOO_WIDTH):
@@ -142,34 +172,111 @@ BAMBOO = {
     7: [(80, 47, 0), (43, 105, 0), (43, 163, 0), (80, 105, 0), (80, 163, 0), (117, 105, 0), (117, 163, 0)],
     9: [(x, y, 0) for y in (46, 106, 166) for x in (45, 80, 115)],
 }
+DOT_RADII = {1:52, 5:24, 6:21.5, 7:19, 8:18.5, 9:18.5}
+DOT_OUTER_STROKE = 6.6
+
+
+def dot_palette(color):
+    # Shared edge, shaded band, inner ink and pale ground across two-nine dot.
+    return ('#82343c', '#a84e58', '#8c3840', '#f2d6d8') if color == RED else ('#222b24', '#48544a', '#252f27', '#e8eae4')
+
+
+def dot_diameter(rank):
+    # Include both halves of the stroke: visible edges meet without overlap.
+    return 2 * DOT_RADII[rank] + DOT_OUTER_STROKE
+
+
+d6, d7, d8, d9 = (dot_diameter(rank) for rank in (6, 7, 8, 9))
+seven_step_x = math.sqrt(d7**2 - 19**2)
 DOTS = {
-    1: [(80, 106, GREEN)],
-    2: [(80, 73, GREEN), (80, 141, RED)],
-    3: [(45, 53, GREEN), (80, 106, RED), (115, 159, GREEN)],
-    4: [(49, 60, GREEN), (111, 60, GREEN), (49, 152, GREEN), (111, 152, GREEN)],
-    5: [(46, 61, GREEN), (114, 61, GREEN), (80, 106, RED), (46, 151, GREEN), (114, 151, GREEN)],
-    6: [(56, 62, GREEN), (104, 62, GREEN), (56, 114, RED), (104, 114, RED), (56, 158, RED), (104, 158, RED)],
-    7: [(44, 55, GREEN), (80, 74, GREEN), (116, 93, GREEN), (57, 131, RED), (103, 131, RED), (57, 169, RED), (103, 169, RED)],
-    8: [(x, y, GREEN) for y in (44, 85, 126, 167) for x in (58, 102)],
-    9: [(x, y, RED if y == 106 else GREEN) for y in (50, 106, 162) for x in (43, 80, 117)],
+    1: [(80, 105, GREEN)],
+    5: [(46, 54, GREEN), (114, 54, GREEN), (80, 105, RED), (46, 156, GREEN), (114, 156, GREEN)],
+    6: [(x, y, GREEN if y == 47 else RED) for y in (47, 163-d6, 163) for x in (80-d6/2, 80+d6/2)],
+    7: [(80-seven_step_x, 42, GREEN), (80, 61, GREEN), (80+seven_step_x, 80, GREEN)]
+       + [(x, y, RED) for y in (168-d7, 168) for x in (80-d7/2, 80+d7/2)],
+    8: [(x, 105+(row-1.5)*d8, GREEN) for row in range(4) for x in (80-d8/2, 80+d8/2)],
+    9: [(80+(column-1)*d9, y, RED if y == 105 else GREEN) for y in (50, 105, 160) for column in range(3)],
 }
 
 
-def dot(x, y, radius, color, index, rosette=False):
-    result = f'<g data-pip="{index}" transform="translate({x} {y})"><circle r="{radius}" fill="none" stroke="{color}" stroke-width="3.9"/><circle r="{radius-5}" fill="none" stroke="{color}" stroke-width="1.8"/>'
-    if rosette:
-        for i in range(12):
-            angle = i * 30
-            result += f'<path d="M0 -8Q-7 -18 0 -25Q7 -18 0 -8Z" transform="rotate({angle})" fill="none" stroke="{color}" stroke-width="1.65"/>'
-        result += f'<circle r="7" fill="{RED}"/><circle r="3" fill="#fffdf5"/>'
-    else:
-        result += f'<circle r="{radius-9}" fill="none" stroke="{color}" stroke-width="2.7"/><circle r="3.3" fill="{color}"/>'
+def reference_dot_face(rank):
+    # Preserve the user's raw 310x450 tile coordinates and all nine disc layers.
+    # One uniform scale fits the ornament inside our existing, centered shell.
+    layouts = {
+        2: [(155, 126, False), (155, 324, False)],
+        3: [(88, 110, False), (155, 225, True), (222, 340, False)],
+        4: [(84, 118, False), (226, 118, False), (84, 332, False), (226, 332, False)],
+    }
+    # Midpoint of the previous5.2 and10.5 center radii, per the latest feedback.
+    center, outer_width, middle_width, inner_width = 7.85, 14, 8, 6
+    gap = (60-outer_width-middle_width-inner_width-center)/3
+    inner_inside = center+gap
+    inner_outside = inner_inside+inner_width
+    middle_inside = inner_outside+gap
+    middle_outside = middle_inside+middle_width
+    radii = (60, 56, 50, 60-outer_width, middle_outside, middle_inside, inner_outside, inner_inside, center)
+    scale = 1.32 if rank == 2 else 1.02
+    # Enlarge the full arrangement12.5%, retaining its center at80/105.
+    result = '<g data-representation="supplied-concentric-layout" transform="translate(10.25 3.75) scale(.45)">'
+    for index, (x, y, is_red) in enumerate(layouts[rank], start=1):
+        edge, band, ink, ground = dot_palette(RED if is_red else GREEN)
+        colors = (edge, band, edge, ground, ink, ground, ink, ground, edge)
+        result += f'<g data-pip="{index}" transform="translate({x} {y}) scale({scale})">'
+        result += ''.join(f'<circle r="{radius}" fill="{color}"/>' for radius, color in zip(radii, colors))
+        result += '</g>'
+    return result + '</g>'
+
+
+def lotus_dot(x, y, radius, index):
+    # Adapt only the user's supplied one-dot ornament into the shared tile shell.
+    scale = (radius+4.3/2)/131
+    result = f'''<g data-pip="{index}" data-representation="lotus-one-dot" transform="translate({x} {y}) scale({scale})">
+      <defs><linearGradient id="tongOneOlive" x1="20%" y1="10%" x2="80%" y2="90%">
+        <stop offset="0%" stop-color="#688438"/><stop offset="50%" stop-color="#58722d"/><stop offset="100%" stop-color="#475e22"/>
+      </linearGradient></defs>
+      <circle r="131" fill="#253816"/>
+      <circle r="126.5" fill="url(#tongOneOlive)"/>
+      <circle r="113.5" fill="#253816"/>
+      <circle r="109.5" fill="#f2f4ec"/>
+      <circle r="101.5" fill="#253816"/>
+      <circle r="98" fill="#9c9668"/>
+      <circle r="83" fill="none" stroke="#536e2c" stroke-width="16"/>
+      <g data-part="gear-petals" transform="rotate(14)">'''
+    for angle in range(0, 360, 30):
+        result += f'<path data-part="gear-petal" d="M0 -98L17.5 -85.5L13.5 -63L5.5 -63L5.5 -77.5A5.5 5.5 0 0 0 -5.5 -77.5L-5.5 -63L-13.5 -63L-17.5 -85.5Z" transform="rotate({angle})" fill="#f2f4ec" stroke="#263818" stroke-width="3.6" stroke-linejoin="round"/>'
+    result += '''</g>
+      <circle r="63.5" fill="#253816"/>
+      <circle r="59.5" fill="#f2f4ec"/>
+      <circle r="48.5" fill="#681810"/>
+      <circle r="45.5" fill="#c83828"/>
+      <circle r="41" fill="#b8432b" stroke="#781e14" stroke-width="2"/>
+      <g data-part="center-flower" transform="rotate(42)">'''
+    for angle in range(0, 360, 90):
+        result += f'<path data-part="center-petal" d="M0 0C-9 -7 -22 -18 -20 -30C-18 -38 -9 -43 0 -43C9 -43 18 -38 20 -30C22 -18 9 -7 0 0Z" transform="rotate({angle})" fill="#f2f4ec" stroke="#781e14" stroke-width="2.8" stroke-linejoin="round"/>'
+    return result + '</g><circle r="3.5" fill="#781e14"/></g>'
+
+
+def dot(x, y, radius, color, index):
+    outer_stroke = DOT_OUTER_STROKE
+    edge, band, ink, ground = dot_palette(color)
+    outside, inside, border = radius+outer_stroke/2, radius-outer_stroke/2, 1.1
+    result = f'<g data-pip="{index}" transform="translate({x} {y})">'
+    # Shaded outer ring uses the same palette and dark edging as two-four dot.
+    for r, fill in ((outside, edge), (outside-border, band), (inside+border, edge), (inside, ground)):
+        result += f'<circle data-part="outer-band" r="{r}" fill="{fill}"/>'
+    center = min(4.5, .65 * max(6, radius*.28))
+    # Five through nine dot retain their approved two-ring design.
+    inner_stroke = 4.2
+    ring_gap = (radius-outer_stroke/2-center-inner_stroke)/2
+    inner = radius-outer_stroke/2-ring_gap-inner_stroke/2
+    result += f'<circle data-part="inner-ring" r="{inner}" fill="none" stroke="{ink}" stroke-width="{inner_stroke}"/>'
+    result += f'<circle data-part="center" r="{center}" fill="{edge}"/>'
     return result + '</g>'
 
 
 def face(suit, rank):
     if suit == 'wan':
-        return glyph(NUMBERS[rank-1], (32, 27, 96, 60), INK, stroke_width=1.0) + glyph('萬', (28, 104, 104, 80), RED, stroke_width=2.0)
+        return calligraphy_wan(rank)
     if suit == 'tiao':
         if rank == 1:
             return bird()
@@ -179,8 +286,13 @@ def face(suit, rank):
         # red/green lengths, with its green pieces longer than the old47.
         height = 76 if 2 <= rank <= 6 else 52 if rank == 7 else 48 if rank == 9 else 52
         return ''.join(bamboo(x, y, height, RED if (rank == 5 and i == 2) or (rank == 7 and i == 0) or (rank == 9 and i % 3 == 1) else GREEN, rot, i+1, width=22 if rank == 9 else BAMBOO_WIDTH) for i, (x, y, rot) in enumerate(BAMBOO[rank]))
-    radius = 43 if rank == 1 else 26 if rank == 2 else 22 if rank <= 4 else 20 if rank == 5 else 19 if rank == 6 else 17 if rank == 7 else 16
-    return ''.join(dot(x, y, radius, color, i+1, rank == 1) for i, (x, y, color) in enumerate(DOTS[rank]))
+    if rank in (2, 3, 4):
+        return reference_dot_face(rank)
+    radius = DOT_RADII[rank]
+    points = DOTS[rank]
+    if rank == 1:
+        return lotus_dot(*points[0][:2], radius, 1)
+    return ''.join(dot(x, y, radius, color, i+1) for i, (x, y, color) in enumerate(points))
 
 
 def svg(suit, rank, content):
@@ -194,7 +306,7 @@ def verify(path, suit, rank):
     assert not list(root.iter(f'{{{SVG_NS}}}text')), 'Glyphs must be fixed outlines.'
     if suit == 'wan':
         chars = [p.get('data-character') for p in root.iter(f'{{{SVG_NS}}}path') if p.get('data-character')]
-        assert chars == [NUMBERS[rank-1], '萬'], chars
+        assert chars == [WAN_NUMBERS[rank-1], '萬'], chars
     else:
         pips = [p for p in root.iter(f'{{{SVG_NS}}}g') if p.get('data-pip')]
         assert len(pips) == rank, f'{path.name}: {len(pips)} motifs instead of {rank}'
@@ -271,4 +383,22 @@ for i, rank in enumerate(range(2, 10)):
     lengths += label(NUMBERS[rank-1] + '条', x+66, y+261, 22)
 lengths += '</svg>'
 (OUT / 'tile-bamboo-lengths.svg').write_text(lengths, encoding='utf-8')
+
+dots_review = f'<svg xmlns="{SVG_NS}" width="1780" height="380" viewBox="0 0 1780 380"><rect width="1780" height="380" fill="#f5f3ed"/>'
+dots_review += label('麻将牌面校对', 48, 23, 28)
+for i, rank in enumerate(range(1, 10)):
+    x = 50+i*188
+    dots_review += f'<g transform="translate({x} 85)">{tiles[f"tong-{rank}"]}</g>'
+    dots_review += label(NUMBERS[rank-1]+'筒', x+56, 323, 24)
+dots_review += '</svg>'
+(OUT / 'tile-dots-review.svg').write_text(dots_review, encoding='utf-8')
+
+wan_review = f'<svg xmlns="{SVG_NS}" width="1780" height="380" viewBox="0 0 1780 380"><rect width="1780" height="380" fill="#f5f3ed"/>'
+wan_review += label('麻将牌面校对', 48, 23, 28)
+for i, rank in enumerate(range(1, 10)):
+    x = 50+i*188
+    wan_review += f'<g transform="translate({x} 85)">{tiles[f"wan-{rank}"]}</g>'
+    wan_review += label(NUMBERS[rank-1]+'万', x+56, 323, 24)
+wan_review += '</svg>'
+(OUT / 'tile-wan-review.svg').write_text(wan_review, encoding='utf-8')
 print(json.dumps({'tiles':len(manifest),'checks':'27 ranks, correct motif counts, fixed actual glyph outlines, no embedded reference photo','catalog':str(OUT/'tile-catalog.svg')}, ensure_ascii=False))
