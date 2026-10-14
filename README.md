@@ -62,6 +62,20 @@ npm test
 
 构建会输出 `dist/client/` 及模板所需的 `dist/server/`、`dist/.openai/hosting.json`。状态逻辑位于 `ui/src/game/state.js`；设计与操作验收记录位于 `ui/design-qa.md`。
 
+### Cloudflare Workers 部署
+
+连接完整 GitHub 仓库后，在 Cloudflare 项目的构建设置中填写：
+
+| 配置项 | 内容 |
+| --- | --- |
+| 根目录 | `ui` |
+| 构建命令 | `npm run build` |
+| 部署命令 | `npm run deploy` |
+
+Wrangler 已作为开发依赖固定版本，并由锁文件统一安装。保留默认的完整依赖安装，包含开发依赖和可选依赖；可选依赖包含部署工具所需的平台运行组件。
+
+`ui/wrangler.jsonc` 中的项目名为 `mahjong-ui`，应与 Cloudflare 中的 Worker 名称保持一致。部署仅发布 `dist/client` 中的静态前端文件。
+
 ## 项目目标
 
 本项目希望回答三个问题：
