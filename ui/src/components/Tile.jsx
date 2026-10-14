@@ -2,7 +2,7 @@ import { tileName } from '../game/state.js';
 
 export function Tile({ tile, back=false, selected=false, onClick, className='', disabled=false, label }) {
   const name=back?'未公开的牌':tileName(tile);
-  const revision=!back?(tile==='tiao-1'?'user-svg-bird-v5-closed-head':tile==='tong-5'?'five-dots-spacing-v2':tile==='tiao-9'?'hollow-wave-nine-v11':/^tiao-[2-8]$/.test(tile)?'hollow-wave-bamboo-v10':null):null;
+  const revision=!back?(tile==='tiao-1'?'centered-long-tail-bird-v7':/^wan-[1-9]$/.test(tile)?'bold-wan-numerals-v3':/^tong-[1-9]$/.test(tile)?'thicker-dot-rings-v4':/^tiao-[78]$/.test(tile)?'aligned-rounded-bamboo-v12':tile==='tiao-9'?'hollow-wave-nine-v11':/^tiao-[2-6]$/.test(tile)?'hollow-wave-bamboo-v10':null):null;
   const image=<img src={`/tiles/${back?'back':tile}.svg${revision?`?v=${revision}`:''}`} alt={onClick?'':name} draggable="false" />;
   const classes=`tile ${back?'tile-back':''} ${selected?'is-selected':''} ${className}`;
   return onClick

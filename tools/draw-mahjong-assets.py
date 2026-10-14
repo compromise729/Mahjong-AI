@@ -13,7 +13,7 @@ BAMBOO_WIDTH = 23
 SVG_NS = 'http://www.w3.org/2000/svg'
 
 
-def glyph(char, box, color, label=False):
+def glyph(char, box, color, label=False, stroke_width=0):
     item = GLYPHS[('label-' if label else '') + char]
     bx, by, bw, bh = map(float, item['bounds'])
     x, y, w, h = box
@@ -22,7 +22,8 @@ def glyph(char, box, color, label=False):
     scale = min(w / bw, h / bh)
     tx = x + (w - bw * scale) / 2 - bx * scale
     ty = y + (h - bh * scale) / 2 - by * scale
-    return f'<path data-character="{char}" d="{item["path"]}" transform="translate({tx:.4f} {ty:.4f}) scale({scale:.5f})" fill="{color}"/>'
+    outline = f' stroke="{color}" stroke-width="{stroke_width/scale:.4f}" stroke-linejoin="round"' if stroke_width else ''
+    return f'<path data-character="{char}" d="{item["path"]}" transform="translate({tx:.4f} {ty:.4f}) scale({scale:.5f})" fill="{color}"{outline}/>'
 
 
 def label(text, x, y, size=21, color=INK):
@@ -57,7 +58,7 @@ def bamboo(x, y, height, color=GREEN, rotation=0, index=0, hollow=True, width=BA
 def bird():
     # Uniformly scale the user's SVG motif into the existing tile shell.
     # Paint the closed head last so the chest fill cannot hide its lower edge.
-    return '''<g data-pip="1" data-representation="bird" transform="translate(10.4 3.2) scale(.58)" fill="none" stroke="url(#tiaoOneInkGreen)" stroke-linecap="round" stroke-linejoin="round">
+    return '''<g data-pip="1" data-representation="bird" transform="translate(12.6 -4.8) scale(.58)" fill="none" stroke="url(#tiaoOneInkGreen)" stroke-linecap="round" stroke-linejoin="round">
       <defs>
         <linearGradient id="tiaoOneInkGreen" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stop-color="#2D5A36"/>
@@ -82,20 +83,22 @@ def bird():
       <path d="M 83 192 C 66 212, 48 228, 28 238 C 46 234, 66 220, 86 196" stroke-width="6.5" fill="#254F2E"/>
       <path d="M 149 178 C 162 183, 176 183, 188 176" stroke-width="8.5"/>
       <circle cx="198" cy="171" r="11" stroke-width="8.5" fill="#FAFBF7"/>
+      <g data-part="tail" transform="translate(0 200) scale(1 1.105) translate(0 -200)">
       <path d="M 80 198 C 88 226, 98 258, 106 282" stroke-width="7.5"/>
       <path d="M 96 202 C 106 238, 122 282, 140 314" stroke-width="8.5"/>
       <path d="M 110 204 C 112 225, 114 242, 124 252 C 132 275, 142 300, 148 318" stroke-width="7"/>
       <path d="M 124 205 C 124 218, 125 230, 126 238" stroke-width="5.5"/>
       <path d="M 134 204 C 133 222, 134 242, 136 256" stroke-width="5"/>
       <path d="M 148 188 C 144 224, 144 268, 152 312" stroke-width="8.5"/>
+      </g>
       <path d="M 92 88 C 89 105, 90 128, 95 140 C 102 150, 128 150, 140 138 C 152 126, 150 96, 136 82 C 124 72, 100 76, 92 88 Z" stroke-width="8.5" fill="#FAFBF7"/>
       <circle cx="118" cy="112" r="10.5" stroke="#8E3532" stroke-width="6.5" fill="#FAFBF7"/>
     </g>'''
 
 
 def woven_eight():
-    # Add diagonal length through a wider span, keeping the lower scallops clear.
-    vertical_length, diagonal_length, half_span = 76, 64, 44
+    # Retain the approved horizontal span; slightly lengthen only the diagonals.
+    vertical_length, diagonal_length, half_span = 76, 67, 44
     rise = math.sqrt(diagonal_length**2 - half_span**2)
     left, right = 80-half_span, 80+half_span
     upper = [(left, 20), (left, 20+vertical_length), (80, 20+vertical_length-rise), (right, 20+vertical_length), (right, 20)]
@@ -136,7 +139,7 @@ BAMBOO = {
     4: [(52, 61, 0), (108, 61, 0), (52, 149, 0), (108, 149, 0)],
     5: [(47, 59, 0), (113, 59, 0), (80, 105, 0), (47, 151, 0), (113, 151, 0)],
     6: [(43, 59, 0), (80, 59, 0), (117, 59, 0), (43, 151, 0), (80, 151, 0), (117, 151, 0)],
-    7: [(80, 43, 0), (43, 105, 0), (43, 167, 0), (80, 105, 0), (80, 167, 0), (117, 105, 0), (117, 167, 0)],
+    7: [(80, 47, 0), (43, 105, 0), (43, 163, 0), (80, 105, 0), (80, 163, 0), (117, 105, 0), (117, 163, 0)],
     9: [(x, y, 0) for y in (46, 106, 166) for x in (45, 80, 115)],
 }
 DOTS = {
@@ -153,20 +156,20 @@ DOTS = {
 
 
 def dot(x, y, radius, color, index, rosette=False):
-    result = f'<g data-pip="{index}" transform="translate({x} {y})"><circle r="{radius}" fill="none" stroke="{color}" stroke-width="3.2"/><circle r="{radius-5}" fill="none" stroke="{color}" stroke-width="1.4"/>'
+    result = f'<g data-pip="{index}" transform="translate({x} {y})"><circle r="{radius}" fill="none" stroke="{color}" stroke-width="3.9"/><circle r="{radius-5}" fill="none" stroke="{color}" stroke-width="1.8"/>'
     if rosette:
         for i in range(12):
             angle = i * 30
-            result += f'<path d="M0 -8Q-7 -18 0 -25Q7 -18 0 -8Z" transform="rotate({angle})" fill="none" stroke="{color}" stroke-width="1.3"/>'
+            result += f'<path d="M0 -8Q-7 -18 0 -25Q7 -18 0 -8Z" transform="rotate({angle})" fill="none" stroke="{color}" stroke-width="1.65"/>'
         result += f'<circle r="7" fill="{RED}"/><circle r="3" fill="#fffdf5"/>'
     else:
-        result += f'<circle r="{radius-9}" fill="none" stroke="{color}" stroke-width="2.2"/><circle r="3.3" fill="{color}"/>'
+        result += f'<circle r="{radius-9}" fill="none" stroke="{color}" stroke-width="2.7"/><circle r="3.3" fill="{color}"/>'
     return result + '</g>'
 
 
 def face(suit, rank):
     if suit == 'wan':
-        return glyph(NUMBERS[rank-1], (32, 27, 96, 60), INK) + glyph('萬', (28, 104, 104, 80), RED)
+        return glyph(NUMBERS[rank-1], (32, 27, 96, 60), INK, stroke_width=1.0) + glyph('萬', (28, 104, 104, 80), RED, stroke_width=2.0)
     if suit == 'tiao':
         if rank == 1:
             return bird()
@@ -174,7 +177,7 @@ def face(suit, rank):
             return woven_eight()
         # Two-row layouts stay elongated; seven's three rows use equal
         # red/green lengths, with its green pieces longer than the old47.
-        height = 76 if 2 <= rank <= 6 else 56 if rank == 7 else 48 if rank == 9 else 52
+        height = 76 if 2 <= rank <= 6 else 52 if rank == 7 else 48 if rank == 9 else 52
         return ''.join(bamboo(x, y, height, RED if (rank == 5 and i == 2) or (rank == 7 and i == 0) or (rank == 9 and i % 3 == 1) else GREEN, rot, i+1, width=22 if rank == 9 else BAMBOO_WIDTH) for i, (x, y, rot) in enumerate(BAMBOO[rank]))
     radius = 43 if rank == 1 else 26 if rank == 2 else 22 if rank <= 4 else 20 if rank == 5 else 19 if rank == 6 else 17 if rank == 7 else 16
     return ''.join(dot(x, y, radius, color, i+1, rank == 1) for i, (x, y, color) in enumerate(DOTS[rank]))
