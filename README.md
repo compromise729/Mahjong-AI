@@ -35,28 +35,29 @@
 
 ### 本地运行
 
-Windows可直接双击 `ui/start.cmd`，或在PowerShell中运行：
+先安装 [Node.js](https://nodejs.org/) 22.12 或更高版本（包含 npm，建议使用 LTS 版本）。Windows、macOS 和 Linux 均可运行，不需要安装 Codex 或 pnpm。
 
-```powershell
-cd C:\Acode\mahjong\ui
-.\start.cmd
-```
+克隆或下载仓库后，在仓库根目录打开终端：
 
-启动器会查找系统Node.js，找不到时使用当前用户的Codex自带Node.js；已安装前端依赖时无需pnpm。若牌桌已在4173端口运行，会直接显示访问地址。也可运行 `./start.cmd 4174` 指定其他端口。
-
-安装 Node.js 与 pnpm 后，在项目目录运行：
-
-```powershell
+```sh
 cd ui
-pnpm install
-pnpm run dev --host 127.0.0.1 --port 4173 --strictPort
+npm ci
+npm start
 ```
 
-打开 `http://127.0.0.1:4173/`。生产构建及测试：
+打开 `http://127.0.0.1:4173/`。保持终端打开，按 Ctrl+C 停止。首次运行需要联网安装依赖；之后直接运行 `npm start`。如果代码更新后依赖发生变化，再执行一次 `npm ci`。
 
-```powershell
-pnpm run build
-pnpm test
+Windows 也可以双击 `ui/start.cmd`：首次启动会自动执行 `npm ci`，随后启动页面。启动器优先使用系统 Node.js；本机已有 Codex 自带 Node.js 时，也保留兼容支持。
+
+默认端口为 4173。若同一端口已有本项目在运行，会直接显示访问地址；若端口被其他程序占用，可运行 `npm start -- 4174`，Windows 启动器可用 `.\start.cmd 4174`。
+
+需要 Vite 热更新开发服务时，在 `ui` 目录运行 `npm run dev`，使用终端实际显示的地址。
+
+生产构建及测试（同样在 `ui` 目录运行）：
+
+```sh
+npm run build
+npm test
 ```
 
 构建会输出 `dist/client/` 及模板所需的 `dist/server/`、`dist/.openai/hosting.json`。状态逻辑位于 `ui/src/game/state.js`；设计与操作验收记录位于 `ui/design-qa.md`。

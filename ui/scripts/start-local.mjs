@@ -28,7 +28,7 @@ const alreadyRunning = await new Promise(resolve => {
 if (alreadyRunning) {
   console.log(`牌桌已经在运行，直接打开：${url}`);
 } else if (!existsSync(vite)) {
-  console.error('缺少前端依赖。请先安装项目依赖，再运行 start.cmd。');
+  console.error('缺少前端依赖。请在 ui 目录运行 npm ci，再运行 npm start。');
   process.exitCode = 1;
 } else {
   console.log(`正在启动牌桌：${url}\n保持此终端打开，按 Ctrl+C 停止。`);
