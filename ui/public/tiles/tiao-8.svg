@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 216" width="160" height="216" data-suit="tiao" data-rank="8" role="img" aria-label="八条"><title>八条</title><rect x="5" y="13" width="150" height="198" rx="11" fill="#d8d2bc"/><rect x="5" y="5" width="150" height="198" rx="11" fill="#fffdf5" stroke="#cecbb9" stroke-width="1.5"/><rect x="10" y="10" width="140" height="188" rx="7" fill="none" stroke="#ffffff" stroke-width="1.5"/><g data-representation="woven-eight"><g data-pip="1" transform="translate(40.0 58.0) rotate(0.0)">
+      <rect x="-8" y="-26.0" width="16" height="52.0" rx="4.6" fill="#315b40"/>
+      <path d="M-2.8 -23.0V23.0" stroke="#f4f1da" stroke-width="1.7" opacity=".74"/>
+      <path d="M-9 -23.0H9 M-9 0H9 M-9 23.0H9" fill="none" stroke="#315b40" stroke-width="4" stroke-linecap="round"/>
+      <path d="M-4.5 -22.0H4.5 M-4.5 1H4.5 M-4.5 24.0H4.5" fill="none" stroke="#a7b290" stroke-width="1"/>
+    </g><g data-pip="2" transform="translate(60.0 67.38675227416385) rotate(50.28486276817378)">
+      <rect x="-8" y="-26.0" width="16" height="52.0" rx="4.6" fill="#315b40"/>
+      <path d="M-2.8 -23.0V23.0" stroke="#f4f1da" stroke-width="1.7" opacity=".74"/>
+      <path d="M-9 -23.0H9 M-9 0H9 M-9 23.0H9" fill="none" stroke="#315b40" stroke-width="4" stroke-linecap="round"/>
+      <path d="M-4.5 -22.0H4.5 M-4.5 1H4.5 M-4.5 24.0H4.5" fill="none" stroke="#a7b290" stroke-width="1"/>
+    </g><g data-pip="3" transform="translate(100.0 67.38675227416385) rotate(-50.284862768173795)">
+      <rect x="-8" y="-26.0" width="16" height="52.0" rx="4.6" fill="#315b40"/>
+      <path d="M-2.8 -23.0V23.0" stroke="#f4f1da" stroke-width="1.7" opacity=".74"/>
+      <path d="M-9 -23.0H9 M-9 0H9 M-9 23.0H9" fill="none" stroke="#315b40" stroke-width="4" stroke-linecap="round"/>
+      <path d="M-4.5 -22.0H4.5 M-4.5 1H4.5 M-4.5 24.0H4.5" fill="none" stroke="#a7b290" stroke-width="1"/>
+    </g><g data-pip="4" transform="translate(120.0 58.0) rotate(0.0)">
+      <rect x="-8" y="-26.0" width="16" height="52.0" rx="4.6" fill="#315b40"/>
+      <path d="M-2.8 -23.0V23.0" stroke="#f4f1da" stroke-width="1.7" opacity=".74"/>
+      <path d="M-9 -23.0H9 M-9 0H9 M-9 23.0H9" fill="none" stroke="#315b40" stroke-width="4" stroke-linecap="round"/>
+      <path d="M-4.5 -22.0H4.5 M-4.5 1H4.5 M-4.5 24.0H4.5" fill="none" stroke="#a7b290" stroke-width="1"/>
+    </g><g data-pip="5" transform="translate(40.0 151.0) rotate(0.0)">
+      <rect x="-8" y="-26.0" width="16" height="52.0" rx="4.6" fill="#315b40"/>
+      <path d="M-2.8 -23.0V23.0" stroke="#f4f1da" stroke-width="1.7" opacity=".74"/>
+      <path d="M-9 -23.0H9 M-9 0H9 M-9 23.0H9" fill="none" stroke="#315b40" stroke-width="4" stroke-linecap="round"/>
+      <path d="M-4.5 -22.0H4.5 M-4.5 1H4.5 M-4.5 24.0H4.5" fill="none" stroke="#a7b290" stroke-width="1"/>
+    </g><g data-pip="6" transform="translate(60.0 141.61324772583615) rotate(-50.2848627681738)">
+      <rect x="-8" y="-25.999999999999996" width="16" height="51.99999999999999" rx="4.6" fill="#315b40"/>
+      <path d="M-2.8 -22.999999999999996V22.999999999999996" stroke="#f4f1da" stroke-width="1.7" opacity=".74"/>
+      <path d="M-9 -22.999999999999996H9 M-9 0H9 M-9 22.999999999999996H9" fill="none" stroke="#315b40" stroke-width="4" stroke-linecap="round"/>
+      <path d="M-4.5 -21.999999999999996H4.5 M-4.5 1H4.5 M-4.5 23.999999999999996H4.5" fill="none" stroke="#a7b290" stroke-width="1"/>
+    </g><g data-pip="7" transform="translate(100.0 141.61324772583615) rotate(50.28486276817378)">
+      <rect x="-8" y="-25.999999999999996" width="16" height="51.99999999999999" rx="4.6" fill="#315b40"/>
+      <path d="M-2.8 -22.999999999999996V22.999999999999996" stroke="#f4f1da" stroke-width="1.7" opacity=".74"/>
+      <path d="M-9 -22.999999999999996H9 M-9 0H9 M-9 22.999999999999996H9" fill="none" stroke="#315b40" stroke-width="4" stroke-linecap="round"/>
+      <path d="M-4.5 -21.999999999999996H4.5 M-4.5 1H4.5 M-4.5 23.999999999999996H4.5" fill="none" stroke="#a7b290" stroke-width="1"/>
+    </g><g data-pip="8" transform="translate(120.0 151.0) rotate(0.0)">
+      <rect x="-8" y="-26.0" width="16" height="52.0" rx="4.6" fill="#315b40"/>
+      <path d="M-2.8 -23.0V23.0" stroke="#f4f1da" stroke-width="1.7" opacity=".74"/>
+      <path d="M-9 -23.0H9 M-9 0H9 M-9 23.0H9" fill="none" stroke="#315b40" stroke-width="4" stroke-linecap="round"/>
+      <path d="M-4.5 -22.0H4.5 M-4.5 1H4.5 M-4.5 24.0H4.5" fill="none" stroke="#a7b290" stroke-width="1"/>
+    </g></g></svg>

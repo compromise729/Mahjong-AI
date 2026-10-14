@@ -1,0 +1,272 @@
+[
+  {
+    "id": "wan-1",
+    "suit": "wan",
+    "rank": 1,
+    "label": "一万",
+    "file": "wan-1.svg",
+    "motif_count": null,
+    "width": 160,
+    "height": 216
+  },
+  {
+    "id": "wan-2",
+    "suit": "wan",
+    "rank": 2,
+    "label": "二万",
+    "file": "wan-2.svg",
+    "motif_count": null,
+    "width": 160,
+    "height": 216
+  },
+  {
+    "id": "wan-3",
+    "suit": "wan",
+    "rank": 3,
+    "label": "三万",
+    "file": "wan-3.svg",
+    "motif_count": null,
+    "width": 160,
+    "height": 216
+  },
+  {
+    "id": "wan-4",
+    "suit": "wan",
+    "rank": 4,
+    "label": "四万",
+    "file": "wan-4.svg",
+    "motif_count": null,
+    "width": 160,
+    "height": 216
+  },
+  {
+    "id": "wan-5",
+    "suit": "wan",
+    "rank": 5,
+    "label": "五万",
+    "file": "wan-5.svg",
+    "motif_count": null,
+    "width": 160,
+    "height": 216
+  },
+  {
+    "id": "wan-6",
+    "suit": "wan",
+    "rank": 6,
+    "label": "六万",
+    "file": "wan-6.svg",
+    "motif_count": null,
+    "width": 160,
+    "height": 216
+  },
+  {
+    "id": "wan-7",
+    "suit": "wan",
+    "rank": 7,
+    "label": "七万",
+    "file": "wan-7.svg",
+    "motif_count": null,
+    "width": 160,
+    "height": 216
+  },
+  {
+    "id": "wan-8",
+    "suit": "wan",
+    "rank": 8,
+    "label": "八万",
+    "file": "wan-8.svg",
+    "motif_count": null,
+    "width": 160,
+    "height": 216
+  },
+  {
+    "id": "wan-9",
+    "suit": "wan",
+    "rank": 9,
+    "label": "九万",
+    "file": "wan-9.svg",
+    "motif_count": null,
+    "width": 160,
+    "height": 216
+  },
+  {
+    "id": "tiao-1",
+    "suit": "tiao",
+    "rank": 1,
+    "label": "一条",
+    "file": "tiao-1.svg",
+    "motif_count": 1,
+    "width": 160,
+    "height": 216
+  },
+  {
+    "id": "tiao-2",
+    "suit": "tiao",
+    "rank": 2,
+    "label": "二条",
+    "file": "tiao-2.svg",
+    "motif_count": 2,
+    "width": 160,
+    "height": 216
+  },
+  {
+    "id": "tiao-3",
+    "suit": "tiao",
+    "rank": 3,
+    "label": "三条",
+    "file": "tiao-3.svg",
+    "motif_count": 3,
+    "width": 160,
+    "height": 216
+  },
+  {
+    "id": "tiao-4",
+    "suit": "tiao",
+    "rank": 4,
+    "label": "四条",
+    "file": "tiao-4.svg",
+    "motif_count": 4,
+    "width": 160,
+    "height": 216
+  },
+  {
+    "id": "tiao-5",
+    "suit": "tiao",
+    "rank": 5,
+    "label": "五条",
+    "file": "tiao-5.svg",
+    "motif_count": 5,
+    "width": 160,
+    "height": 216
+  },
+  {
+    "id": "tiao-6",
+    "suit": "tiao",
+    "rank": 6,
+    "label": "六条",
+    "file": "tiao-6.svg",
+    "motif_count": 6,
+    "width": 160,
+    "height": 216
+  },
+  {
+    "id": "tiao-7",
+    "suit": "tiao",
+    "rank": 7,
+    "label": "七条",
+    "file": "tiao-7.svg",
+    "motif_count": 7,
+    "width": 160,
+    "height": 216
+  },
+  {
+    "id": "tiao-8",
+    "suit": "tiao",
+    "rank": 8,
+    "label": "八条",
+    "file": "tiao-8.svg",
+    "motif_count": 8,
+    "width": 160,
+    "height": 216
+  },
+  {
+    "id": "tiao-9",
+    "suit": "tiao",
+    "rank": 9,
+    "label": "九条",
+    "file": "tiao-9.svg",
+    "motif_count": 9,
+    "width": 160,
+    "height": 216
+  },
+  {
+    "id": "tong-1",
+    "suit": "tong",
+    "rank": 1,
+    "label": "一筒",
+    "file": "tong-1.svg",
+    "motif_count": 1,
+    "width": 160,
+    "height": 216
+  },
+  {
+    "id": "tong-2",
+    "suit": "tong",
+    "rank": 2,
+    "label": "二筒",
+    "file": "tong-2.svg",
+    "motif_count": 2,
+    "width": 160,
+    "height": 216
+  },
+  {
+    "id": "tong-3",
+    "suit": "tong",
+    "rank": 3,
+    "label": "三筒",
+    "file": "tong-3.svg",
+    "motif_count": 3,
+    "width": 160,
+    "height": 216
+  },
+  {
+    "id": "tong-4",
+    "suit": "tong",
+    "rank": 4,
+    "label": "四筒",
+    "file": "tong-4.svg",
+    "motif_count": 4,
+    "width": 160,
+    "height": 216
+  },
+  {
+    "id": "tong-5",
+    "suit": "tong",
+    "rank": 5,
+    "label": "五筒",
+    "file": "tong-5.svg",
+    "motif_count": 5,
+    "width": 160,
+    "height": 216
+  },
+  {
+    "id": "tong-6",
+    "suit": "tong",
+    "rank": 6,
+    "label": "六筒",
+    "file": "tong-6.svg",
+    "motif_count": 6,
+    "width": 160,
+    "height": 216
+  },
+  {
+    "id": "tong-7",
+    "suit": "tong",
+    "rank": 7,
+    "label": "七筒",
+    "file": "tong-7.svg",
+    "motif_count": 7,
+    "width": 160,
+    "height": 216
+  },
+  {
+    "id": "tong-8",
+    "suit": "tong",
+    "rank": 8,
+    "label": "八筒",
+    "file": "tong-8.svg",
+    "motif_count": 8,
+    "width": 160,
+    "height": 216
+  },
+  {
+    "id": "tong-9",
+    "suit": "tong",
+    "rank": 9,
+    "label": "九筒",
+    "file": "tong-9.svg",
+    "motif_count": 9,
+    "width": 160,
+    "height": 216
+  }
+]

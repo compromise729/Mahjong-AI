@@ -1,0 +1,38 @@
+# Prototype Instructions
+
+## Confirmed Mahjong UI requirements
+
+- Use the selected warm-white / sage four-seat table with the event picker beneath it.
+- Use the original SVG tiles copied from `../assets/tiles`; never use the reference photograph or generated tile faces.
+- Three opponents have flat, face-down concealed tiles. Pung/open kong show faces; concealed kong shows one face and three backs.
+- Concealed-back orientation: left90°, right270° (180° flipped from its former side direction), top180°. The separated new-draw back follows its seat; public melds keep their existing orientation.
+- Seven bamboo has three vertical green pairs beneath one red piece; eight bamboo has eight equal, symmetric joined bamboo pieces.
+- Six bamboo is2 rows ×3 columns: three green bamboo pieces on top and three below. Keep the source generator and public SVG synchronized.
+- Chinese UI text is hand-written. Do not render generated-image text or claim real AI analysis exists.
+- Opponent concealed stacks must fit all13 tiles; adapt tile size rather than clipping the last two. Show actual concealed count separately from melds.
+- After a discard, advance 上家 → 我 → 下家 → 对家 → 上家. Selecting self defaults to draw; own draw switches to discard. Pung/kong keeps the acting seat. Undo restores the event's seat and action.
+- Selecting the dealer in hand setup chooses any of the four seats; dealer14, others13. Start on that dealer's first discard. Show the remaining physical wall at the upper right: initially55 of108 after dealing, decrement each draw/replacement once, restore on undo. If an opponent draw was omitted before a normal discard, account for it once. Require an explicit draw before added/concealed kong.
+- A pending draw/pung/kong locks all other seat controls and own-hand shortcuts until that player's discard or self-draw win. Keep the lock through kong replacement draws; enforce it in the state layer too.
+- Pung/open-kong/point-win automatically use the exact current discard and source, including undo restoration; never offer a face/source picker for those actions. Self draw is a separate action; own self draw uses the new drawn face with no picker. Disable missing-suit faces for all meld and Hu types and reject them in state logic.
+- Display pung, open kong, added kong and concealed kong as four direct action buttons alongside draw/discard/Hu/self-draw. No More dropdown. Keep the same phase and missing-suit disabled checks.
+- Sort the remaining own hand after discard by 万、条、筒 and rank1–9; keep the new draw separated.
+- Leave10px top padding in the own-hand scroller so raised/outlined selected tiles keep their full top edge. Shift the right seat left16px on desktop (right40px) and8px on mobile (right12px).
+- Display rule-based waits live, including seven pairs, missing-suit restrictions and meld-adjusted sizes. Unseen counts include opponents' hidden hands and are not wall counts or probabilities.
+- Opponent draw events have no tile identity: add one separated back, remove it on discard. Keep14 concealed tiles while awaiting discard; after pung keep the extra concealed tile until its discard.
+- Apply new-draw label positioning only to `.opponent-draw-label`, never all child spans: Tile itself renders a span. The new back must occupy normal layout space and have a visible gap in every seat.
+- Record self-draw/discard wins. Own winners keep all known faces bright; opponents' remaining hidden hands stay face-down. Winners exit all subsequent actions and are skipped in automatic selection; end when three have won. Multi-win continuation uses the furthest anticlockwise winner from the discarder, then the next non-winner, independent of entry order. Undo restores winner/draw/end status.
+- When the round is finished, show exactly“对局结束”in the center of the top header/status bar. Undo hides it when restoring an unfinished round; narrow layouts reserve a second centered header row to avoid overlapping tools.
+- On each live opponent discard, show separate self win/pung/open-kong availability and buttons bound to that exact discard. Respect phase, missing suit, exited players, response expiry and passed-win restrictions. Mark unresolved missing-suit meld rules as pending, not confirmed legal.
+- Show the response banner only if at least one of Hu, pung or open kong is enabled. Hide it completely when all three are unavailable; a pung-only choice must still show.
+- After a legal own winning draw, show the same green response banner with the actual drawn tile and a direct“自摸胡牌”button. Hide it for nonwinning/missing-suit draws and after Hu; undo restores it.
+- Every winning tile is face-up in the winner's separated new-draw position, marked胡牌/天胡; do not duplicate its face in the displayed river. Retain the winning river ledger/physicalId for count deduplication. Own remaining faces stay face-up, opponents' rest stay hidden. Opponent self-draw wins require entering the actual winning face. Shared-discard Hu copies reference one physical tile and must not inflate known counts.
+- A legal initial dealer14 hand can win without another draw. Keep the original input14th tile in drawnTile, show天胡 in the green prompt and event, never deduct a wall tile for this initial Hu. Preserve that14th when reopening setup. A normal first draw also permits legal self-draw Hu; missing-suit/shape restrictions still apply.
+- Bind pass to the live discard too; a passed winning face stays blocked until the next own draw and undo restores the response. Do not silently invent unresolved passed-win release rules. Keep winning public tiles fully opaque; only exited concealed backs fade.
+
+Run the local server yourself and open the preview in the browser available to this environment. Do not give the user server-start instructions when you can run it.
+
+Before making substantial visual changes, use the Product Design plugin's `get-context` skill when the visual source is unclear or no longer matches the current goal. When the user gives durable prototype-specific design feedback, preferences, or decisions, record them in `AGENTS.md`.
+
+When implementing from a selected generated mock, treat that image as the source of truth for layout, component anatomy, density, spacing, color, typography, visible content, and hierarchy.
+
+Build app UI in `src/`. Keep `.openai/hosting.json`, `worker/index.js`, `scripts/prepare-sites-build.mjs`, and `tests/sites-worker.test.mjs` intact so the same local prototype can be handed to Sites. Before a Sites handoff, run `npm run build` and `npm run test:sites`; the build must leave `dist/client/index.html`, `dist/server/index.js`, and `dist/.openai/hosting.json`.
