@@ -1,21 +1,49 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 216" width="160" height="216" data-suit="tiao" data-rank="4" role="img" aria-label="四条"><title>四条</title><rect x="5" y="13" width="150" height="198" rx="11" fill="#d8d2bc"/><rect x="5" y="5" width="150" height="198" rx="11" fill="#fffdf5" stroke="#cecbb9" stroke-width="1.5"/><rect x="10" y="10" width="140" height="188" rx="7" fill="none" stroke="#ffffff" stroke-width="1.5"/><g data-pip="1" transform="translate(49 59) rotate(0)">
-      <rect x="-8" y="-38.0" width="16" height="76" rx="4.6" fill="#315b40"/>
-      <path d="M-2.8 -35.0V35.0" stroke="#f4f1da" stroke-width="1.7" opacity=".74"/>
-      <path d="M-9 -35.0H9 M-9 0H9 M-9 35.0H9" fill="none" stroke="#315b40" stroke-width="4" stroke-linecap="round"/>
-      <path d="M-4.5 -34.0H4.5 M-4.5 1H4.5 M-4.5 36.0H4.5" fill="none" stroke="#a7b290" stroke-width="1"/>
-    </g><g data-pip="2" transform="translate(111 59) rotate(0)">
-      <rect x="-8" y="-38.0" width="16" height="76" rx="4.6" fill="#315b40"/>
-      <path d="M-2.8 -35.0V35.0" stroke="#f4f1da" stroke-width="1.7" opacity=".74"/>
-      <path d="M-9 -35.0H9 M-9 0H9 M-9 35.0H9" fill="none" stroke="#315b40" stroke-width="4" stroke-linecap="round"/>
-      <path d="M-4.5 -34.0H4.5 M-4.5 1H4.5 M-4.5 36.0H4.5" fill="none" stroke="#a7b290" stroke-width="1"/>
-    </g><g data-pip="3" transform="translate(49 151) rotate(0)">
-      <rect x="-8" y="-38.0" width="16" height="76" rx="4.6" fill="#315b40"/>
-      <path d="M-2.8 -35.0V35.0" stroke="#f4f1da" stroke-width="1.7" opacity=".74"/>
-      <path d="M-9 -35.0H9 M-9 0H9 M-9 35.0H9" fill="none" stroke="#315b40" stroke-width="4" stroke-linecap="round"/>
-      <path d="M-4.5 -34.0H4.5 M-4.5 1H4.5 M-4.5 36.0H4.5" fill="none" stroke="#a7b290" stroke-width="1"/>
-    </g><g data-pip="4" transform="translate(111 151) rotate(0)">
-      <rect x="-8" y="-38.0" width="16" height="76" rx="4.6" fill="#315b40"/>
-      <path d="M-2.8 -35.0V35.0" stroke="#f4f1da" stroke-width="1.7" opacity=".74"/>
-      <path d="M-9 -35.0H9 M-9 0H9 M-9 35.0H9" fill="none" stroke="#315b40" stroke-width="4" stroke-linecap="round"/>
-      <path d="M-4.5 -34.0H4.5 M-4.5 1H4.5 M-4.5 36.0H4.5" fill="none" stroke="#a7b290" stroke-width="1"/>
-    </g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 216" width="160" height="216" data-suit="tiao" data-rank="4" role="img" aria-label="四条"><title>四条</title><rect x="5" y="13" width="150" height="198" rx="11" fill="#d8d2bc"/><rect x="5" y="5" width="150" height="198" rx="11" fill="#fffdf5" stroke="#cecbb9" stroke-width="1.5"/><rect x="10" y="10" width="140" height="188" rx="7" fill="none" stroke="#ffffff" stroke-width="1.5"/><g data-pip="1" data-representation="hollow-wave-bamboo" data-length="76" data-width="22" transform="translate(52 61) rotate(0)"><path data-part="outline" d="M0 -38.0
+      C6 -38.0 11 -33.44 11 -27.36
+      C11 -19.76 7.2 -19.0 7.2 -14.44
+      C7.2 -9.12 11 -7.6000000000000005 11 0
+      C11 7.6000000000000005 7.2 9.12 7.2 14.44
+      C7.2 19.0 11 19.76 11 27.36
+      C11 33.44 6 38.0 0 38.0
+      C-6 38.0 -11 33.44 -11 27.36
+      C-11 19.76 -7.2 19.0 -7.2 14.44
+      C-7.2 9.12 -11 7.6000000000000005 -11 0
+      C-11 -7.6000000000000005 -7.2 -9.12 -7.2 -14.44
+      C-7.2 -19.0 -11 -19.76 -11 -27.36
+      C-11 -33.44 -6 -38.0 0 -38.0Z" fill="#315b40"/><path data-part="hollow" d="M0 -31.0V31.0" fill="none" stroke="#fffdf5" stroke-width="6" stroke-linecap="round"/></g><g data-pip="2" data-representation="hollow-wave-bamboo" data-length="76" data-width="22" transform="translate(108 61) rotate(0)"><path data-part="outline" d="M0 -38.0
+      C6 -38.0 11 -33.44 11 -27.36
+      C11 -19.76 7.2 -19.0 7.2 -14.44
+      C7.2 -9.12 11 -7.6000000000000005 11 0
+      C11 7.6000000000000005 7.2 9.12 7.2 14.44
+      C7.2 19.0 11 19.76 11 27.36
+      C11 33.44 6 38.0 0 38.0
+      C-6 38.0 -11 33.44 -11 27.36
+      C-11 19.76 -7.2 19.0 -7.2 14.44
+      C-7.2 9.12 -11 7.6000000000000005 -11 0
+      C-11 -7.6000000000000005 -7.2 -9.12 -7.2 -14.44
+      C-7.2 -19.0 -11 -19.76 -11 -27.36
+      C-11 -33.44 -6 -38.0 0 -38.0Z" fill="#315b40"/><path data-part="hollow" d="M0 -31.0V31.0" fill="none" stroke="#fffdf5" stroke-width="6" stroke-linecap="round"/></g><g data-pip="3" data-representation="hollow-wave-bamboo" data-length="76" data-width="22" transform="translate(52 149) rotate(0)"><path data-part="outline" d="M0 -38.0
+      C6 -38.0 11 -33.44 11 -27.36
+      C11 -19.76 7.2 -19.0 7.2 -14.44
+      C7.2 -9.12 11 -7.6000000000000005 11 0
+      C11 7.6000000000000005 7.2 9.12 7.2 14.44
+      C7.2 19.0 11 19.76 11 27.36
+      C11 33.44 6 38.0 0 38.0
+      C-6 38.0 -11 33.44 -11 27.36
+      C-11 19.76 -7.2 19.0 -7.2 14.44
+      C-7.2 9.12 -11 7.6000000000000005 -11 0
+      C-11 -7.6000000000000005 -7.2 -9.12 -7.2 -14.44
+      C-7.2 -19.0 -11 -19.76 -11 -27.36
+      C-11 -33.44 -6 -38.0 0 -38.0Z" fill="#315b40"/><path data-part="hollow" d="M0 -31.0V31.0" fill="none" stroke="#fffdf5" stroke-width="6" stroke-linecap="round"/></g><g data-pip="4" data-representation="hollow-wave-bamboo" data-length="76" data-width="22" transform="translate(108 149) rotate(0)"><path data-part="outline" d="M0 -38.0
+      C6 -38.0 11 -33.44 11 -27.36
+      C11 -19.76 7.2 -19.0 7.2 -14.44
+      C7.2 -9.12 11 -7.6000000000000005 11 0
+      C11 7.6000000000000005 7.2 9.12 7.2 14.44
+      C7.2 19.0 11 19.76 11 27.36
+      C11 33.44 6 38.0 0 38.0
+      C-6 38.0 -11 33.44 -11 27.36
+      C-11 19.76 -7.2 19.0 -7.2 14.44
+      C-7.2 9.12 -11 7.6000000000000005 -11 0
+      C-11 -7.6000000000000005 -7.2 -9.12 -7.2 -14.44
+      C-7.2 -19.0 -11 -19.76 -11 -27.36
+      C-11 -33.44 -6 -38.0 0 -38.0Z" fill="#315b40"/><path data-part="hollow" d="M0 -31.0V31.0" fill="none" stroke="#fffdf5" stroke-width="6" stroke-linecap="round"/></g></svg>

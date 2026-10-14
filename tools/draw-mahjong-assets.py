@@ -32,14 +32,25 @@ def shell():
     return '<rect x="5" y="13" width="150" height="198" rx="11" fill="#d8d2bc"/><rect x="5" y="5" width="150" height="198" rx="11" fill="#fffdf5" stroke="#cecbb9" stroke-width="1.5"/><rect x="10" y="10" width="140" height="188" rx="7" fill="none" stroke="#ffffff" stroke-width="1.5"/>'
 
 
-def bamboo(x, y, height, color=GREEN, rotation=0, index=0):
+def bamboo(x, y, height, color=GREEN, rotation=0, index=0, hollow=True):
     h = height / 2
-    return f'''<g data-pip="{index}" transform="translate({x} {y}) rotate({rotation})">
-      <rect x="-8" y="{-h}" width="16" height="{height}" rx="4.6" fill="{color}"/>
-      <path d="M-2.8 {-h+3}V{h-3}" stroke="#f4f1da" stroke-width="1.7" opacity=".74"/>
-      <path d="M-9 {-h+3}H9 M-9 0H9 M-9 {h-3}H9" fill="none" stroke="{color}" stroke-width="4" stroke-linecap="round"/>
-      <path d="M-4.5 {-h+4}H4.5 M-4.5 1H4.5 M-4.5 {h-2}H4.5" fill="none" stroke="#a7b290" stroke-width="1"/>
-    </g>'''
+    # Three rounded lobes on each side surround a clear central channel.
+    # All ranks use the same22-unit outer width, regardless of their length.
+    contour = f'''M0 {-h}
+      C6 {-h} 11 {-h*.88} 11 {-h*.72}
+      C11 {-h*.52} 7.2 {-h*.5} 7.2 {-h*.38}
+      C7.2 {-h*.24} 11 {-h*.2} 11 0
+      C11 {h*.2} 7.2 {h*.24} 7.2 {h*.38}
+      C7.2 {h*.5} 11 {h*.52} 11 {h*.72}
+      C11 {h*.88} 6 {h} 0 {h}
+      C-6 {h} -11 {h*.88} -11 {h*.72}
+      C-11 {h*.52} -7.2 {h*.5} -7.2 {h*.38}
+      C-7.2 {h*.24} -11 {h*.2} -11 0
+      C-11 {-h*.2} -7.2 {-h*.24} -7.2 {-h*.38}
+      C-7.2 {-h*.5} -11 {-h*.52} -11 {-h*.72}
+      C-11 {-h*.88} -6 {-h} 0 {-h}Z'''
+    channel = f'<path data-part="hollow" d="M0 {-h+7}V{h-7}" fill="none" stroke="#fffdf5" stroke-width="6" stroke-linecap="round"/>' if hollow else ''
+    return f'<g data-pip="{index}" data-representation="hollow-wave-bamboo" data-length="{height}" data-width="22" transform="translate({x} {y}) rotate({rotation})"><path data-part="outline" d="{contour}" fill="{color}"/>{channel}</g>'
 
 
 def bird():
@@ -82,9 +93,11 @@ def bird():
 
 
 def woven_eight():
-    # Eight real, equal-length bamboo pieces, arranged with exact mirror symmetry.
-    rise = math.sqrt(52**2 - 40**2)
-    upper = [(40, 32), (40, 84), (80, 84-rise), (120, 84), (120, 32)]
+    # Four vertical76-unit pieces and four shorter60-unit diagonals.
+    # The shorter rise opens the central angle while retaining mirror symmetry.
+    vertical_length, diagonal_length = 76, 60
+    rise = math.sqrt(diagonal_length**2 - 40**2)
+    upper = [(40, 20), (40, 20+vertical_length), (80, 20+vertical_length-rise), (120, 20+vertical_length), (120, 20)]
     lower = [(x, 209-y) for x, y in upper]
     segments = list(zip(upper, upper[1:])) + list(zip(lower, lower[1:]))
     result = '<g data-representation="woven-eight">'
@@ -95,14 +108,31 @@ def woven_eight():
             angle -= 180
         elif angle < -90:
             angle += 180
-        result += bamboo((x1+x2)/2, (y1+y2)/2, length, GREEN, angle, i+1)
+        result += bamboo((x1+x2)/2, (y1+y2)/2, length, GREEN, angle, i+1, hollow=False)
+    # Round both the green outer joins and the ivory center along the same
+    # curve. Separate circular joint patches would protrude beyond the bends.
+    for points in (upper, lower):
+        inset = 7 if points is upper else -7
+        channel_points = [(points[0][0], points[0][1]+inset), *points[1:-1], (points[-1][0], points[-1][1]+inset)]
+        channel = f'M{channel_points[0][0]} {channel_points[0][1]}'
+        for i, (x, y) in enumerate(channel_points[1:-1], start=1):
+            px, py = channel_points[i-1]
+            nx, ny = channel_points[i+1]
+            before, after = math.hypot(x-px, y-py), math.hypot(nx-x, ny-y)
+            radius = 8
+            ax, ay = x+(px-x)*radius/before, y+(py-y)*radius/before
+            bx, by = x+(nx-x)*radius/after, y+(ny-y)*radius/after
+            result += f'<path data-part="rounded-joint" d="M{ax} {ay}Q{x} {y} {bx} {by}" fill="none" stroke="{GREEN}" stroke-width="14.4" stroke-linecap="round" stroke-linejoin="round"/>'
+            channel += f'L{ax} {ay}Q{x} {y} {bx} {by}'
+        channel += f'L{channel_points[-1][0]} {channel_points[-1][1]}'
+        result += f'<path data-part="joined-hollow" d="{channel}" fill="none" stroke="#fffdf5" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>'
     return result + '</g>'
 
 
 BAMBOO = {
     2: [(80, 61, 0), (80, 151, 0)],
     3: [(80, 58, 0), (49, 147, 0), (111, 147, 0)],
-    4: [(49, 59, 0), (111, 59, 0), (49, 151, 0), (111, 151, 0)],
+    4: [(52, 61, 0), (108, 61, 0), (52, 149, 0), (108, 149, 0)],
     5: [(47, 59, 0), (113, 59, 0), (80, 105, 0), (47, 151, 0), (113, 151, 0)],
     6: [(43, 59, 0), (80, 59, 0), (117, 59, 0), (43, 151, 0), (80, 151, 0), (117, 151, 0)],
     7: [(80, 43, 0), (43, 105, 0), (43, 167, 0), (80, 105, 0), (80, 167, 0), (117, 105, 0), (117, 167, 0)],
@@ -143,7 +173,7 @@ def face(suit, rank):
             return woven_eight()
         # Two-row layouts stay elongated; seven's three rows use equal
         # red/green lengths, with its green pieces longer than the old47.
-        height = 76 if 2 <= rank <= 6 else 56 if rank == 7 else 43 if rank == 9 else 52
+        height = 76 if 2 <= rank <= 6 else 56 if rank == 7 else 48 if rank == 9 else 52
         return ''.join(bamboo(x, y, height, RED if (rank == 5 and i == 2) or (rank == 7 and i == 0) or (rank == 9 and i % 3 == 1) else GREEN, rot, i+1) for i, (x, y, rot) in enumerate(BAMBOO[rank]))
     radius = 43 if rank == 1 else 26 if rank == 2 else 22 if rank <= 4 else 20 if rank == 5 else 19 if rank == 6 else 17 if rank == 7 else 16
     return ''.join(dot(x, y, radius, color, i+1, rank == 1) for i, (x, y, color) in enumerate(DOTS[rank]))
