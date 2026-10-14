@@ -101,11 +101,11 @@ def woven_eight():
 
 BAMBOO = {
     2: [(80, 61, 0), (80, 151, 0)],
-    3: [(80, 54, 0), (49, 151, 0), (111, 151, 0)],
+    3: [(80, 58, 0), (49, 147, 0), (111, 147, 0)],
     4: [(49, 59, 0), (111, 59, 0), (49, 151, 0), (111, 151, 0)],
-    5: [(47, 50, 0), (113, 50, 0), (80, 105, 0), (47, 160, 0), (113, 160, 0)],
+    5: [(47, 59, 0), (113, 59, 0), (80, 105, 0), (47, 151, 0), (113, 151, 0)],
     6: [(43, 59, 0), (80, 59, 0), (117, 59, 0), (43, 151, 0), (80, 151, 0), (117, 151, 0)],
-    7: [(80, 34, 0), (43, 95, 0), (43, 158, 0), (80, 95, 0), (80, 158, 0), (117, 95, 0), (117, 158, 0)],
+    7: [(80, 43, 0), (43, 105, 0), (43, 167, 0), (80, 105, 0), (80, 167, 0), (117, 105, 0), (117, 167, 0)],
     9: [(x, y, 0) for y in (46, 106, 166) for x in (45, 80, 115)],
 }
 DOTS = {
@@ -141,8 +141,10 @@ def face(suit, rank):
             return bird()
         if rank == 8:
             return woven_eight()
-        height = 56 if rank <= 4 or rank == 6 else 43 if rank in (5, 9) else 34 if rank == 7 else 52
-        return ''.join(bamboo(x, y, 47 if rank == 7 and i > 0 else height, RED if (rank == 5 and i == 2) or (rank == 7 and i == 0) or (rank == 9 and i % 3 == 1) else GREEN, rot, i+1) for i, (x, y, rot) in enumerate(BAMBOO[rank]))
+        # Two-row layouts stay elongated; seven's three rows use equal
+        # red/green lengths, with its green pieces longer than the old47.
+        height = 76 if 2 <= rank <= 6 else 56 if rank == 7 else 43 if rank == 9 else 52
+        return ''.join(bamboo(x, y, height, RED if (rank == 5 and i == 2) or (rank == 7 and i == 0) or (rank == 9 and i % 3 == 1) else GREEN, rot, i+1) for i, (x, y, rot) in enumerate(BAMBOO[rank]))
     radius = 43 if rank == 1 else 26 if rank == 2 else 22 if rank <= 4 else 20 if rank == 5 else 19 if rank == 6 else 17 if rank == 7 else 16
     return ''.join(dot(x, y, radius, color, i+1, rank == 1) for i, (x, y, color) in enumerate(DOTS[rank]))
 
@@ -226,4 +228,13 @@ for i, name in enumerate(('tiao-8', 'tiao-7', 'tong-5', 'tong-6')):
     latest += label(item['label'], x+71, 407, 28)
 latest += '</svg>'
 (OUT / 'tile-corrections-v3.svg').write_text(latest, encoding='utf-8')
+
+lengths = f'<svg xmlns="{SVG_NS}" width="960" height="680" viewBox="0 0 960 680"><rect width="960" height="680" fill="#f5f3ed"/>'
+lengths += label('麻将牌面校对', 48, 23, 28)
+for i, rank in enumerate(range(2, 10)):
+    x, y = 28 + (i % 4) * 240, 75 + (i // 4) * 290
+    lengths += f'<g transform="translate({x} {y}) scale(1.15)">{tiles[f"tiao-{rank}"]}</g>'
+    lengths += label(NUMBERS[rank-1] + '条', x+66, y+261, 22)
+lengths += '</svg>'
+(OUT / 'tile-bamboo-lengths.svg').write_text(lengths, encoding='utf-8')
 print(json.dumps({'tiles':len(manifest),'checks':'27 ranks, correct motif counts, fixed actual glyph outlines, no embedded reference photo','catalog':str(OUT/'tile-catalog.svg')}, ensure_ascii=False))
