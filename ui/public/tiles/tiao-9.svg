@@ -10,7 +10,7 @@
       C-7.2 5.76 -11 4.800000000000001 -11 0
       C-11 -4.800000000000001 -7.2 -5.76 -7.2 -9.120000000000001
       C-7.2 -12.0 -11 -12.48 -11 -17.28
-      C-11 -21.12 -6 -24.0 0 -24.0Z" fill="#315b40"/><path data-part="hollow" d="M0 -17.0V17.0" fill="none" stroke="#fffdf5" stroke-width="6" stroke-linecap="round"/></g><g data-pip="2" data-representation="hollow-wave-bamboo" data-length="48" data-width="22" transform="translate(80 46) rotate(0)"><path data-part="outline" d="M0 -24.0
+      C-11 -21.12 -6 -24.0 0 -24.0Z" transform="scale(1.0 1)" fill="#315b40"/><path data-part="hollow" d="M0 -17.0V17.0" fill="none" stroke="#fffdf5" stroke-width="6" stroke-linecap="round"/></g><g data-pip="2" data-representation="hollow-wave-bamboo" data-length="48" data-width="22" transform="translate(80 46) rotate(0)"><path data-part="outline" d="M0 -24.0
       C6 -24.0 11 -21.12 11 -17.28
       C11 -12.48 7.2 -12.0 7.2 -9.120000000000001
       C7.2 -5.76 11 -4.800000000000001 11 0
@@ -22,7 +22,7 @@
       C-7.2 5.76 -11 4.800000000000001 -11 0
       C-11 -4.800000000000001 -7.2 -5.76 -7.2 -9.120000000000001
       C-7.2 -12.0 -11 -12.48 -11 -17.28
-      C-11 -21.12 -6 -24.0 0 -24.0Z" fill="#a8332b"/><path data-part="hollow" d="M0 -17.0V17.0" fill="none" stroke="#fffdf5" stroke-width="6" stroke-linecap="round"/></g><g data-pip="3" data-representation="hollow-wave-bamboo" data-length="48" data-width="22" transform="translate(115 46) rotate(0)"><path data-part="outline" d="M0 -24.0
+      C-11 -21.12 -6 -24.0 0 -24.0Z" transform="scale(1.0 1)" fill="#a8332b"/><path data-part="hollow" d="M0 -17.0V17.0" fill="none" stroke="#fffdf5" stroke-width="6" stroke-linecap="round"/></g><g data-pip="3" data-representation="hollow-wave-bamboo" data-length="48" data-width="22" transform="translate(115 46) rotate(0)"><path data-part="outline" d="M0 -24.0
       C6 -24.0 11 -21.12 11 -17.28
       C11 -12.48 7.2 -12.0 7.2 -9.120000000000001
       C7.2 -5.76 11 -4.800000000000001 11 0
@@ -34,7 +34,7 @@
       C-7.2 5.76 -11 4.800000000000001 -11 0
       C-11 -4.800000000000001 -7.2 -5.76 -7.2 -9.120000000000001
       C-7.2 -12.0 -11 -12.48 -11 -17.28
-      C-11 -21.12 -6 -24.0 0 -24.0Z" fill="#315b40"/><path data-part="hollow" d="M0 -17.0V17.0" fill="none" stroke="#fffdf5" stroke-width="6" stroke-linecap="round"/></g><g data-pip="4" data-representation="hollow-wave-bamboo" data-length="48" data-width="22" transform="translate(45 106) rotate(0)"><path data-part="outline" d="M0 -24.0
+      C-11 -21.12 -6 -24.0 0 -24.0Z" transform="scale(1.0 1)" fill="#315b40"/><path data-part="hollow" d="M0 -17.0V17.0" fill="none" stroke="#fffdf5" stroke-width="6" stroke-linecap="round"/></g><g data-pip="4" data-representation="hollow-wave-bamboo" data-length="48" data-width="22" transform="translate(45 106) rotate(0)"><path data-part="outline" d="M0 -24.0
       C6 -24.0 11 -21.12 11 -17.28
       C11 -12.48 7.2 -12.0 7.2 -9.120000000000001
       C7.2 -5.76 11 -4.800000000000001 11 0
@@ -46,7 +46,7 @@
       C-7.2 5.76 -11 4.800000000000001 -11 0
       C-11 -4.800000000000001 -7.2 -5.76 -7.2 -9.120000000000001
       C-7.2 -12.0 -11 -12.48 -11 -17.28
-      C-11 -21.12 -6 -24.0 0 -24.0Z" fill="#315b40"/><path data-part="hollow" d="M0 -17.0V17.0" fill="none" stroke="#fffdf5" stroke-width="6" stroke-linecap="round"/></g><g data-pip="5" data-representation="hollow-wave-bamboo" data-length="48" data-width="22" transform="translate(80 106) rotate(0)"><path data-part="outline" d="M0 -24.0
+      C-11 -21.12 -6 -24.0 0 -24.0Z" transform="scale(1.0 1)" fill="#315b40"/><path data-part="hollow" d="M0 -17.0V17.0" fill="none" stroke="#fffdf5" stroke-width="6" stroke-linecap="round"/></g><g data-pip="5" data-representation="hollow-wave-bamboo" data-length="48" data-width="22" transform="translate(80 106) rotate(0)"><path data-part="outline" d="M0 -24.0
       C6 -24.0 11 -21.12 11 -17.28
       C11 -12.48 7.2 -12.0 7.2 -9.120000000000001
       C7.2 -5.76 11 -4.800000000000001 11 0
@@ -58,7 +58,7 @@
       C-7.2 5.76 -11 4.800000000000001 -11 0
       C-11 -4.800000000000001 -7.2 -5.76 -7.2 -9.120000000000001
       C-7.2 -12.0 -11 -12.48 -11 -17.28
-      C-11 -21.12 -6 -24.0 0 -24.0Z" fill="#a8332b"/><path data-part="hollow" d="M0 -17.0V17.0" fill="none" stroke="#fffdf5" stroke-width="6" stroke-linecap="round"/></g><g data-pip="6" data-representation="hollow-wave-bamboo" data-length="48" data-width="22" transform="translate(115 106) rotate(0)"><path data-part="outline" d="M0 -24.0
+      C-11 -21.12 -6 -24.0 0 -24.0Z" transform="scale(1.0 1)" fill="#a8332b"/><path data-part="hollow" d="M0 -17.0V17.0" fill="none" stroke="#fffdf5" stroke-width="6" stroke-linecap="round"/></g><g data-pip="6" data-representation="hollow-wave-bamboo" data-length="48" data-width="22" transform="translate(115 106) rotate(0)"><path data-part="outline" d="M0 -24.0
       C6 -24.0 11 -21.12 11 -17.28
       C11 -12.48 7.2 -12.0 7.2 -9.120000000000001
       C7.2 -5.76 11 -4.800000000000001 11 0
@@ -70,7 +70,7 @@
       C-7.2 5.76 -11 4.800000000000001 -11 0
       C-11 -4.800000000000001 -7.2 -5.76 -7.2 -9.120000000000001
       C-7.2 -12.0 -11 -12.48 -11 -17.28
-      C-11 -21.12 -6 -24.0 0 -24.0Z" fill="#315b40"/><path data-part="hollow" d="M0 -17.0V17.0" fill="none" stroke="#fffdf5" stroke-width="6" stroke-linecap="round"/></g><g data-pip="7" data-representation="hollow-wave-bamboo" data-length="48" data-width="22" transform="translate(45 166) rotate(0)"><path data-part="outline" d="M0 -24.0
+      C-11 -21.12 -6 -24.0 0 -24.0Z" transform="scale(1.0 1)" fill="#315b40"/><path data-part="hollow" d="M0 -17.0V17.0" fill="none" stroke="#fffdf5" stroke-width="6" stroke-linecap="round"/></g><g data-pip="7" data-representation="hollow-wave-bamboo" data-length="48" data-width="22" transform="translate(45 166) rotate(0)"><path data-part="outline" d="M0 -24.0
       C6 -24.0 11 -21.12 11 -17.28
       C11 -12.48 7.2 -12.0 7.2 -9.120000000000001
       C7.2 -5.76 11 -4.800000000000001 11 0
@@ -82,7 +82,7 @@
       C-7.2 5.76 -11 4.800000000000001 -11 0
       C-11 -4.800000000000001 -7.2 -5.76 -7.2 -9.120000000000001
       C-7.2 -12.0 -11 -12.48 -11 -17.28
-      C-11 -21.12 -6 -24.0 0 -24.0Z" fill="#315b40"/><path data-part="hollow" d="M0 -17.0V17.0" fill="none" stroke="#fffdf5" stroke-width="6" stroke-linecap="round"/></g><g data-pip="8" data-representation="hollow-wave-bamboo" data-length="48" data-width="22" transform="translate(80 166) rotate(0)"><path data-part="outline" d="M0 -24.0
+      C-11 -21.12 -6 -24.0 0 -24.0Z" transform="scale(1.0 1)" fill="#315b40"/><path data-part="hollow" d="M0 -17.0V17.0" fill="none" stroke="#fffdf5" stroke-width="6" stroke-linecap="round"/></g><g data-pip="8" data-representation="hollow-wave-bamboo" data-length="48" data-width="22" transform="translate(80 166) rotate(0)"><path data-part="outline" d="M0 -24.0
       C6 -24.0 11 -21.12 11 -17.28
       C11 -12.48 7.2 -12.0 7.2 -9.120000000000001
       C7.2 -5.76 11 -4.800000000000001 11 0
@@ -94,7 +94,7 @@
       C-7.2 5.76 -11 4.800000000000001 -11 0
       C-11 -4.800000000000001 -7.2 -5.76 -7.2 -9.120000000000001
       C-7.2 -12.0 -11 -12.48 -11 -17.28
-      C-11 -21.12 -6 -24.0 0 -24.0Z" fill="#a8332b"/><path data-part="hollow" d="M0 -17.0V17.0" fill="none" stroke="#fffdf5" stroke-width="6" stroke-linecap="round"/></g><g data-pip="9" data-representation="hollow-wave-bamboo" data-length="48" data-width="22" transform="translate(115 166) rotate(0)"><path data-part="outline" d="M0 -24.0
+      C-11 -21.12 -6 -24.0 0 -24.0Z" transform="scale(1.0 1)" fill="#a8332b"/><path data-part="hollow" d="M0 -17.0V17.0" fill="none" stroke="#fffdf5" stroke-width="6" stroke-linecap="round"/></g><g data-pip="9" data-representation="hollow-wave-bamboo" data-length="48" data-width="22" transform="translate(115 166) rotate(0)"><path data-part="outline" d="M0 -24.0
       C6 -24.0 11 -21.12 11 -17.28
       C11 -12.48 7.2 -12.0 7.2 -9.120000000000001
       C7.2 -5.76 11 -4.800000000000001 11 0
@@ -106,4 +106,4 @@
       C-7.2 5.76 -11 4.800000000000001 -11 0
       C-11 -4.800000000000001 -7.2 -5.76 -7.2 -9.120000000000001
       C-7.2 -12.0 -11 -12.48 -11 -17.28
-      C-11 -21.12 -6 -24.0 0 -24.0Z" fill="#315b40"/><path data-part="hollow" d="M0 -17.0V17.0" fill="none" stroke="#fffdf5" stroke-width="6" stroke-linecap="round"/></g></svg>
+      C-11 -21.12 -6 -24.0 0 -24.0Z" transform="scale(1.0 1)" fill="#315b40"/><path data-part="hollow" d="M0 -17.0V17.0" fill="none" stroke="#fffdf5" stroke-width="6" stroke-linecap="round"/></g></svg>

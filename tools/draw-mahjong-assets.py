@@ -9,6 +9,7 @@ OUT = ROOT / 'assets' / 'tiles'
 GLYPHS = json.loads((OUT / 'glyphs.json').read_text(encoding='utf-8-sig'))
 NUMBERS = '一二三四五六七八九'
 GREEN, RED, INK = '#315b40', '#a8332b', '#25312b'
+BAMBOO_WIDTH = 23
 SVG_NS = 'http://www.w3.org/2000/svg'
 
 
@@ -32,10 +33,10 @@ def shell():
     return '<rect x="5" y="13" width="150" height="198" rx="11" fill="#d8d2bc"/><rect x="5" y="5" width="150" height="198" rx="11" fill="#fffdf5" stroke="#cecbb9" stroke-width="1.5"/><rect x="10" y="10" width="140" height="188" rx="7" fill="none" stroke="#ffffff" stroke-width="1.5"/>'
 
 
-def bamboo(x, y, height, color=GREEN, rotation=0, index=0, hollow=True):
+def bamboo(x, y, height, color=GREEN, rotation=0, index=0, hollow=True, width=BAMBOO_WIDTH):
     h = height / 2
     # Three rounded lobes on each side surround a clear central channel.
-    # All ranks use the same22-unit outer width, regardless of their length.
+    # Enlarge only the outer contour slightly; retain the6-unit clear channel.
     contour = f'''M0 {-h}
       C6 {-h} 11 {-h*.88} 11 {-h*.72}
       C11 {-h*.52} 7.2 {-h*.5} 7.2 {-h*.38}
@@ -50,7 +51,7 @@ def bamboo(x, y, height, color=GREEN, rotation=0, index=0, hollow=True):
       C-7.2 {-h*.5} -11 {-h*.52} -11 {-h*.72}
       C-11 {-h*.88} -6 {-h} 0 {-h}Z'''
     channel = f'<path data-part="hollow" d="M0 {-h+7}V{h-7}" fill="none" stroke="#fffdf5" stroke-width="6" stroke-linecap="round"/>' if hollow else ''
-    return f'<g data-pip="{index}" data-representation="hollow-wave-bamboo" data-length="{height}" data-width="22" transform="translate({x} {y}) rotate({rotation})"><path data-part="outline" d="{contour}" fill="{color}"/>{channel}</g>'
+    return f'<g data-pip="{index}" data-representation="hollow-wave-bamboo" data-length="{height}" data-width="{width}" transform="translate({x} {y}) rotate({rotation})"><path data-part="outline" d="{contour}" transform="scale({width/22} 1)" fill="{color}"/>{channel}</g>'
 
 
 def bird():
@@ -93,11 +94,11 @@ def bird():
 
 
 def woven_eight():
-    # Four vertical76-unit pieces and four shorter60-unit diagonals.
-    # The shorter rise opens the central angle while retaining mirror symmetry.
-    vertical_length, diagonal_length = 76, 60
-    rise = math.sqrt(diagonal_length**2 - 40**2)
-    upper = [(40, 20), (40, 20+vertical_length), (80, 20+vertical_length-rise), (120, 20+vertical_length), (120, 20)]
+    # Add diagonal length through a wider span, keeping the lower scallops clear.
+    vertical_length, diagonal_length, half_span = 76, 64, 44
+    rise = math.sqrt(diagonal_length**2 - half_span**2)
+    left, right = 80-half_span, 80+half_span
+    upper = [(left, 20), (left, 20+vertical_length), (80, 20+vertical_length-rise), (right, 20+vertical_length), (right, 20)]
     lower = [(x, 209-y) for x, y in upper]
     segments = list(zip(upper, upper[1:])) + list(zip(lower, lower[1:]))
     result = '<g data-representation="woven-eight">'
@@ -122,7 +123,7 @@ def woven_eight():
             radius = 8
             ax, ay = x+(px-x)*radius/before, y+(py-y)*radius/before
             bx, by = x+(nx-x)*radius/after, y+(ny-y)*radius/after
-            result += f'<path data-part="rounded-joint" d="M{ax} {ay}Q{x} {y} {bx} {by}" fill="none" stroke="{GREEN}" stroke-width="14.4" stroke-linecap="round" stroke-linejoin="round"/>'
+            result += f'<path data-part="rounded-joint" d="M{ax} {ay}Q{x} {y} {bx} {by}" fill="none" stroke="{GREEN}" stroke-width="{14.4*BAMBOO_WIDTH/22}" stroke-linecap="round" stroke-linejoin="round"/>'
             channel += f'L{ax} {ay}Q{x} {y} {bx} {by}'
         channel += f'L{channel_points[-1][0]} {channel_points[-1][1]}'
         result += f'<path data-part="joined-hollow" d="{channel}" fill="none" stroke="#fffdf5" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>'
@@ -143,7 +144,7 @@ DOTS = {
     2: [(80, 73, GREEN), (80, 141, RED)],
     3: [(45, 53, GREEN), (80, 106, RED), (115, 159, GREEN)],
     4: [(49, 60, GREEN), (111, 60, GREEN), (49, 152, GREEN), (111, 152, GREEN)],
-    5: [(46, 64, GREEN), (114, 64, GREEN), (80, 106, RED), (46, 148, GREEN), (114, 148, GREEN)],
+    5: [(46, 61, GREEN), (114, 61, GREEN), (80, 106, RED), (46, 151, GREEN), (114, 151, GREEN)],
     6: [(56, 62, GREEN), (104, 62, GREEN), (56, 114, RED), (104, 114, RED), (56, 158, RED), (104, 158, RED)],
     7: [(44, 55, GREEN), (80, 74, GREEN), (116, 93, GREEN), (57, 131, RED), (103, 131, RED), (57, 169, RED), (103, 169, RED)],
     8: [(x, y, GREEN) for y in (44, 85, 126, 167) for x in (58, 102)],
@@ -174,7 +175,7 @@ def face(suit, rank):
         # Two-row layouts stay elongated; seven's three rows use equal
         # red/green lengths, with its green pieces longer than the old47.
         height = 76 if 2 <= rank <= 6 else 56 if rank == 7 else 48 if rank == 9 else 52
-        return ''.join(bamboo(x, y, height, RED if (rank == 5 and i == 2) or (rank == 7 and i == 0) or (rank == 9 and i % 3 == 1) else GREEN, rot, i+1) for i, (x, y, rot) in enumerate(BAMBOO[rank]))
+        return ''.join(bamboo(x, y, height, RED if (rank == 5 and i == 2) or (rank == 7 and i == 0) or (rank == 9 and i % 3 == 1) else GREEN, rot, i+1, width=22 if rank == 9 else BAMBOO_WIDTH) for i, (x, y, rot) in enumerate(BAMBOO[rank]))
     radius = 43 if rank == 1 else 26 if rank == 2 else 22 if rank <= 4 else 20 if rank == 5 else 19 if rank == 6 else 17 if rank == 7 else 16
     return ''.join(dot(x, y, radius, color, i+1, rank == 1) for i, (x, y, color) in enumerate(DOTS[rank]))
 
