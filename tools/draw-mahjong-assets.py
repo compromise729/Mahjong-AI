@@ -43,22 +43,41 @@ def bamboo(x, y, height, color=GREEN, rotation=0, index=0):
 
 
 def bird():
-    return f'''<g data-pip="1" data-representation="bird" stroke="{GREEN}" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M27 169Q77 158 131 173" fill="none" stroke-width="5"/>
-      <path d="M42 167L43 178 M76 163L74 176 M110 168L108 181" fill="none" stroke-width="2.2"/>
-      <path d="M66 133L64 164 M81 136L82 165 M64 164L53 169 M64 164L71 167 M82 165L74 170 M82 165L92 169" fill="none" stroke-width="3.2"/>
-      <path d="M70 115Q58 132 41 156Q67 151 78 129Z" fill="#486b48" stroke-width="2"/>
-      <path d="M54 137L37 165 M62 137L48 166 M69 136L62 159" fill="none" stroke-width="3"/>
-      <path d="M97 60Q116 90 96 124Q86 141 68 135Q49 126 53 99Q58 75 75 64" fill="#f4edd8" stroke-width="5"/>
-      <path d="M62 83Q40 99 55 120Q68 132 86 125Q96 100 81 88Q72 82 62 83Z" fill="#557449" stroke-width="3"/>
-      <path d="M57 99Q71 96 85 110 M55 106Q70 104 82 117 M58 114Q69 111 76 123" fill="none" stroke="#f4edd8" stroke-width="2"/>
-      <path d="M73 63Q69 39 88 35Q104 32 111 49Q116 68 102 76Q88 83 78 72Z" fill="#f4edd8" stroke-width="4"/>
-      <path d="M110 52L130 58L112 64" fill="#b5a265" stroke-width="2.5"/>
-      <path d="M80 40Q83 25 98 30Q100 35 104 40" fill="none" stroke="{RED}" stroke-width="4"/>
-      <circle cx="99" cy="50" r="3" fill="{INK}" stroke="none"/>
-      <circle cx="98.1" cy="49" r=".9" fill="#fffdf5" stroke="none"/>
-      <path d="M95 71Q90 82 83 88 M91 81Q101 87 101 96" fill="none" stroke-width="2.5"/>
-      <path d="M111 177Q124 176 130 186Q116 187 111 177Z M39 170Q25 166 21 153Q36 155 39 170Z" fill="#557449" stroke-width="1.5"/>
+    # Uniformly scale the user's SVG motif into the existing tile shell.
+    # Paint the closed head last so the chest fill cannot hide its lower edge.
+    return '''<g data-pip="1" data-representation="bird" transform="translate(10.4 3.2) scale(.58)" fill="none" stroke="url(#tiaoOneInkGreen)" stroke-linecap="round" stroke-linejoin="round">
+      <defs>
+        <linearGradient id="tiaoOneInkGreen" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#2D5A36"/>
+          <stop offset="100%" stop-color="#1E4426"/>
+        </linearGradient>
+      </defs>
+      <circle cx="98" cy="70" r="10.5" stroke-width="7.5" fill="#FAFBF7"/>
+      <path d="M 107 66 C 122 76, 148 70, 178 58" stroke-width="8.5"/>
+      <path d="M 94 81 C 110 80, 132 76, 178 58" stroke-width="6.5"/>
+      <path d="M 93 96 L 66 96 L 91 103" stroke-width="6.5" fill="#254F2E"/>
+      <path d="M 91 114 C 72 110, 58 118, 62 140 C 66 162, 74 182, 80 198" stroke-width="8.5"/>
+      <path d="M 88 122 L 73 142" stroke-width="5.5"/>
+      <path d="M 92 135 L 70 162" stroke-width="6"/>
+      <path d="M 95 148 L 76 178" stroke-width="6"/>
+      <path d="M 97 142 C 94 160, 88 176, 84 190 C 82 200, 96 205, 122 204 C 142 203, 148 196, 149 180 C 151 164, 149 146, 143 136" stroke-width="8.5" fill="#FAFBF7"/>
+      <path d="M 114 147 C 114 155, 111 162, 108 166" stroke-width="5.5"/>
+      <path d="M 126 148 C 127 156, 126 164, 124 169" stroke-width="5.5"/>
+      <path d="M 138 146 C 139 154, 138 161, 136 165" stroke-width="5.5"/>
+      <path d="M 147 116 C 162 102, 174 112, 170 134 C 166 154, 156 168, 149 175" stroke-width="8.5"/>
+      <circle cx="35" cy="184" r="11.5" stroke-width="8.5" fill="#FAFBF7"/>
+      <path d="M 46 189 C 58 195, 70 198, 82 195" stroke-width="8.5"/>
+      <path d="M 83 192 C 66 212, 48 228, 28 238 C 46 234, 66 220, 86 196" stroke-width="6.5" fill="#254F2E"/>
+      <path d="M 149 178 C 162 183, 176 183, 188 176" stroke-width="8.5"/>
+      <circle cx="198" cy="171" r="11" stroke-width="8.5" fill="#FAFBF7"/>
+      <path d="M 80 198 C 88 226, 98 258, 106 282" stroke-width="7.5"/>
+      <path d="M 96 202 C 106 238, 122 282, 140 314" stroke-width="8.5"/>
+      <path d="M 110 204 C 112 225, 114 242, 124 252 C 132 275, 142 300, 148 318" stroke-width="7"/>
+      <path d="M 124 205 C 124 218, 125 230, 126 238" stroke-width="5.5"/>
+      <path d="M 134 204 C 133 222, 134 242, 136 256" stroke-width="5"/>
+      <path d="M 148 188 C 144 224, 144 268, 152 312" stroke-width="8.5"/>
+      <path d="M 92 88 C 89 105, 90 128, 95 140 C 102 150, 128 150, 140 138 C 152 126, 150 96, 136 82 C 124 72, 100 76, 92 88 Z" stroke-width="8.5" fill="#FAFBF7"/>
+      <circle cx="118" cy="112" r="10.5" stroke="#8E3532" stroke-width="6.5" fill="#FAFBF7"/>
     </g>'''
 
 

@@ -2,7 +2,8 @@ import { tileName } from '../game/state.js';
 
 export function Tile({ tile, back=false, selected=false, onClick, className='', disabled=false, label }) {
   const name=back?'未公开的牌':tileName(tile);
-  const image=<img src={`/tiles/${back?'back':tile}.svg${!back&&tile==='tiao-6'?'?v=2rows-3cols':''}`} alt={onClick?'':name} draggable="false" />;
+  const revision=!back?({'tiao-1':'user-svg-bird-v5-closed-head','tiao-6':'2rows-3cols'}[tile]):null;
+  const image=<img src={`/tiles/${back?'back':tile}.svg${revision?`?v=${revision}`:''}`} alt={onClick?'':name} draggable="false" />;
   const classes=`tile ${back?'tile-back':''} ${selected?'is-selected':''} ${className}`;
   return onClick
     ? <button type="button" className={classes} onClick={onClick} disabled={disabled} aria-label={label??name} aria-pressed={selected}>{image}</button>

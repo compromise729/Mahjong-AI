@@ -8,6 +8,8 @@
 - Concealed-back orientation: left90°, right270° (180° flipped from its former side direction), top180°. The separated new-draw back follows its seat; public melds keep their existing orientation.
 - Seven bamboo has three vertical green pairs beneath one red piece; eight bamboo has eight equal, symmetric joined bamboo pieces.
 - Six bamboo is2 rows ×3 columns: three green bamboo pieces on top and three below. Keep the source generator and public SVG synchronized.
+- One bamboo uses the bird paths from the user's2026-10-14 supplied SVG, uniformly scaled to the existing tile shell: ring crest, left-pointing beak, hollow red eye, textured narrow left wing, rounded right wing, two side branch rings and separate open tail feathers. The supplied vector motif supersedes earlier interpretations of the raster reference. Keep the vector source, public SVG, PNG and tile catalog synchronized.
+- The one-bamboo head must remain a visibly closed loop, including its connected lower edge where it meets the body. Paint the head and eye after the chest and wings so their fills cannot cover the head outline.
 - Chinese UI text is hand-written. Do not render generated-image text or claim real AI analysis exists.
 - Opponent concealed stacks must fit all13 tiles; adapt tile size rather than clipping the last two. Show actual concealed count separately from melds.
 - After a discard, advance 上家 → 我 → 下家 → 对家 → 上家. Selecting self defaults to draw; own draw switches to discard. Pung/kong keeps the acting seat. Undo restores the event's seat and action.
