@@ -200,7 +200,7 @@ DOTS = {
 
 
 def reference_dot_face(rank):
-    # Preserve the user's raw 310x450 tile coordinates and all nine disc layers.
+    # Preserve the user's raw310x450 layout; only two-dot has three rings.
     # One uniform scale fits the ornament inside our existing, centered shell.
     layouts = {
         2: [(155, 126, False), (155, 324, False)],
@@ -214,14 +214,24 @@ def reference_dot_face(rank):
     inner_outside = inner_inside+inner_width
     middle_inside = inner_outside+gap
     middle_outside = middle_inside+middle_width
-    radii = (60, 56, 50, 60-outer_width, middle_outside, middle_inside, inner_outside, inner_inside, center)
+    if rank == 2:
+        radii = (60, 56, 50, 60-outer_width, middle_outside, middle_inside, inner_outside, inner_inside, center)
+    else:
+        # Two visible rings plus a center. Keep both clear gaps equal;
+        # the9.15-unit inner band renders at4.2 units, matching five-nine.
+        inner_width = 9.15
+        gap = (60-outer_width-inner_width-center)/2
+        inner_inside = center+gap
+        inner_outside = inner_inside+inner_width
+        radii = (60, 56, 50, 60-outer_width, inner_outside, inner_inside, center)
     scale = 1.32 if rank == 2 else 1.02
     # Enlarge the full arrangement12.5%, retaining its center at80/105.
     result = '<g data-representation="supplied-concentric-layout" transform="translate(10.25 3.75) scale(.45)">'
     for index, (x, y, is_red) in enumerate(layouts[rank], start=1):
         edge, band, ink, ground = dot_palette(RED if is_red else GREEN)
-        colors = (edge, band, edge, ground, ink, ground, ink, ground, edge)
-        result += f'<g data-pip="{index}" transform="translate({x} {y}) scale({scale})">'
+        colors = (edge, band, edge, ground, ink, ground, ink, ground, edge) if rank == 2 else (edge, band, edge, ground, ink, ground, edge)
+        ring_count = ' data-ring-count="2"' if rank in (3, 4) else ''
+        result += f'<g data-pip="{index}"{ring_count} transform="translate({x} {y}) scale({scale})">'
         result += ''.join(f'<circle r="{radius}" fill="{color}"/>' for radius, color in zip(radii, colors))
         result += '</g>'
     return result + '</g>'
