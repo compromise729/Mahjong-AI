@@ -5,3 +5,11 @@ dist/
 *.log
 .DS_Store
 Thumbs.db
+training/.venv/
+training/.tmp/
+training/runs/
+training/data/
+__pycache__/
+*.pyc
+/docs/
+/.agents/
