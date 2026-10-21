@@ -52,7 +52,10 @@ test('added kong upgrades an existing pung without appending a second meld', () 
   before = applyEvent(before, {player:'top',type:'pung',tile:'tong-4',source:'right'});
   before=applyEvent(before,{player:'top',type:'discard',tile:'wan-8'});
   before=applyEvent(before,{player:'top',type:'draw'});
-  const after = applyEvent(before, {player:'top',type:'addedKong',tile:'tong-4'});
+  const offered = applyEvent(before, {player:'top',type:'addedKong',tile:'tong-4'});
+  assert.equal(offered.players.top.melds[0].type,'pung');
+  assert.equal(offered.pendingKong.tile,'tong-4');
+  const after = applyEvent(offered,{player:'top',type:'draw'});
   assert.equal(after.players.top.melds.length, 1);
   assert.equal(after.players.top.melds[0].type, 'addedKong');
   assert.equal(knownCounts(after)['tong-4'], 4);

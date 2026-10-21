@@ -50,7 +50,7 @@ test('pung also reserves its mandatory discard and kong reserves replacement dra
   state=applyEvent(state,{player:'top',type:'discard',tile:'wan-7'});
   state=applyEvent(state,{player:'top',type:'draw'});
   state=applyEvent(state,{player:'top',type:'addedKong',tile:'wan-8'});
-  assert.throws(()=>applyEvent(state,{player:'right',type:'draw'}),/先.*出牌/);
+  assert.throws(()=>applyEvent(state,{player:'right',type:'draw'}),/抢杠|先.*出牌/);
   assert.equal(afterRecord({player:'top',type:'addedKong'},state).type,'draw');
   state=applyEvent(state,{player:'top',type:'draw'});
   state=applyEvent(state,{player:'top',type:'discard',tile:'wan-7'});

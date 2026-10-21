@@ -4,13 +4,14 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "node scripts/start-local.mjs",
-    "dev": "vite",
-    "build": "vite build && node scripts/prepare-sites-build.mjs",
+    "start": "node scripts/sync-decision-rules.mjs && node scripts/start-local.mjs",
+    "dev": "node scripts/sync-decision-rules.mjs && vite",
+    "build": "node scripts/sync-decision-rules.mjs && vite build && node scripts/prepare-sites-build.mjs",
     "deploy": "wrangler deploy",
     "preview": "vite preview",
     "test": "node --test src/game/*.test.js tests/sites-worker.test.mjs",
-    "test:sites": "node --test tests/sites-worker.test.mjs"
+    "test:sites": "node --test tests/sites-worker.test.mjs",
+    "benchmark:decision": "node scripts/benchmark-decision.mjs"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",

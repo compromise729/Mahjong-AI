@@ -1,5 +1,6 @@
 import {TILE_IDS, knownCounts} from './state.js';
 import {isWinningHand} from './hand.js';
+import {winningHandValue} from './hand-value.js';
 export {isWinningHand} from './hand.js';
 
 export function analyzeWaits(state,{discardTile=null}={}) {
@@ -25,4 +26,12 @@ export function analyzeWaits(state,{discardTile=null}={}) {
     if(isWinningHand([...hand,tile],own.melds,own.missing))waits.push({tile,unseen:Math.max(0,4-known[tile])});
   }
   return waits.length?result('waiting',discardTile?'打出所选牌后可听：':'当前可听：',waits):result('notWaiting',discardTile?'打出所选牌后尚未听牌。':'当前尚未听牌。');
+}
+
+export function analyzeWaitValues(state,{discardTile=null}={}) {
+  const result=analyzeWaits(state,{discardTile});
+  if(!result.waits.length)return result;
+  const own=state.players.self,hand=[...own.hand];
+  if(hand.length===14-3*own.melds.length&&discardTile)hand.splice(hand.indexOf(discardTile),1);
+  return {...result,waits:result.waits.map(wait=>({...wait,value:winningHandValue([...hand,wait.tile],own.melds,own.missing),selfDrawValue:winningHandValue([...hand,wait.tile],own.melds,own.missing,{selfDraw:true})}))};
 }

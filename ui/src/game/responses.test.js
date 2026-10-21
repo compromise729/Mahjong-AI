@@ -48,12 +48,12 @@ test('unmatched discards offer no actions and already-won or expired windows sho
   state=discard(state,'wan-8');
   assert.equal(getSelfResponses(state),null);
 });
-test('missing-suit collision and unresolved missing-suit meld rules do not advertise confirmed actions',()=>{
+test('missing-suit melds stay forbidden while other-suit melds are allowed with missing tiles',()=>{
   const state=discard(game(['tong-9','tong-9',...READY.slice(0,11)]),'tong-9');
   assert.deepEqual(enabled(getSelfResponses(state)),[]);
   const response=getSelfResponses(discard(game(['wan-9','wan-9','tong-1',...READY.slice(0,10)]),'wan-9'));
-  assert.deepEqual(enabled(response),[]);
-  assert.equal(response.options.find(o=>o.type==='pung').pendingRule,true);
+  assert.deepEqual(enabled(response),['pung']);
+  assert.equal(response.options.find(o=>o.type==='pung').pendingRule,false);
 });
 test('a winning discard remains available to other winners but not to meld responses',()=>{
   let state=discard(game(READY),'wan-9');

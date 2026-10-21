@@ -13,6 +13,7 @@ function nextActive(player,state){
 }
 
 export function selectSeat(entry,player,state) {
+  if(state?.pendingKong&&!state.players[player]?.won&&player!==state.pendingKong.player)return claimEntry({...entry,player},'win',state);
   if(state?.finished||state?.players[player]?.won||state?.pendingPlayer&&state.pendingPlayer!==player)return entry;
   const acting=state?.players[player];
   const needsDraw=!(acting?.hasDrawn||acting?.pendingDiscard)&&(player==='self'||state?.pendingPlayer===player);
@@ -22,7 +23,7 @@ export function selectSeat(entry,player,state) {
 export function claimEntry(entry,type,state){
   const response=state.discardResponse;
   const available=response&&response.player!==entry.player&&!(entry.player==='self'&&response.selfPassed);
-  return {...entry,type,tile:available?response.tile:null,source:available?response.player:'',discardId:available?response.id:undefined,...(type==='win'?{winType:'discard'}:{})};
+  return {...entry,type,tile:available?response.tile:null,source:available?response.player:'',discardId:available?response.id:undefined,...(type==='win'?{winType:'discard',robKong:Boolean(response?.robKong)}:{})};
 }
 
 export function selfDrawEntry(entry,state){
@@ -31,6 +32,7 @@ export function selfDrawEntry(entry,state){
 
 export function afterRecord(entry,state) {
   if(state?.finished)return {player:null,type:'discard',tile:null,source:''};
+  if(entry.type==='pass'&&state?.pendingKong)return {player:state.pendingKong.player,type:'draw',tile:null,source:''};
   let anchor=entry.player;
   if((entry.type==='pass'||entry.type==='win'&&entry.winType==='discard')&&state?.discardResponse){
     const response=state.discardResponse;

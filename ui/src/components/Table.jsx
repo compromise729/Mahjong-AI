@@ -18,7 +18,7 @@ function Melds({ player }) {
 }
 
 function River({player}) {
-  return <div className="river" aria-label="弃牌区">{player.discards.filter(item=>item.kind!=='win').map(item=><Tile key={item.id} tile={item.tile} />)}</div>;
+  return <div className="river" aria-label="弃牌区">{player.discards.filter(item=>!['win','kongOffer'].includes(item.kind)).map(item=><Tile key={item.id} tile={item.tile} />)}</div>;
 }
 
 function WinningTile({id,player}){
@@ -35,7 +35,7 @@ export function Table({state,selectedPlayer,onSelectPlayer,selectedTile,onSelect
   return <section className="mahjong-table" aria-label="四川麻将牌桌">
     <div className="table-caption"><span>{state.finished?'本局结束':'四川血战'}</span><span>{state.finished?'三家已胡':state.isDemo?'演示牌局 · 可直接编辑':'手动记录牌局'}</span></div>
     {['top','left','right'].map(id=>{const player=state.players[id],separatedDraw=Boolean(player.hasDrawn&&!player.won),count=concealedCount(player),separateSlot=separatedDraw||player.won;return <div key={id} className={`opponent player-${id} ${player.won?'player-won':''}`} data-player={id}>
-      <div className="opponent-label"><Badge id={id} player={state.players[id]} onSelect={onSelectPlayer} selected={selectedPlayer===id} disabled={state.finished||Boolean(state.pendingPlayer&&state.pendingPlayer!==id)}/></div>
+      <div className="opponent-label"><Badge id={id} player={state.players[id]} onSelect={onSelectPlayer} selected={selectedPlayer===id} disabled={state.finished||Boolean(state.pendingPlayer&&state.pendingPlayer!==id&&!state.pendingKong)}/></div>
       <div className="concealed-tiles" style={{'--concealed-count':count+Number(player.won),'--separated-gap':separateSlot?'14px':'0px'}} aria-label={`${PLAYER_NAMES[id]}暗手${count}张`}>{Array.from({length:count-Number(separatedDraw)},(_,i)=><Tile back key={i}/>) }
         {separatedDraw&&<div className="opponent-draw" aria-label={`${PLAYER_NAMES[id]}新摸牌`}><Tile back/><span className="opponent-draw-label">{isInitialDealerTurn(state,id)?'庄家首打':'新摸牌'}</span></div>}
         {player.won&&<WinningTile id={id} player={player}/>}
@@ -44,7 +44,7 @@ export function Table({state,selectedPlayer,onSelectPlayer,selectedTile,onSelect
     </div>})}
     <div className="own-public"><Melds player={own}/><River player={own}/></div>
     <div className="own-player">
-      <Badge id="self" player={own} onSelect={onSelectPlayer} selected={selectedPlayer==='self'} disabled={state.finished||Boolean(state.pendingPlayer&&state.pendingPlayer!=='self')}/>
+      <Badge id="self" player={own} onSelect={onSelectPlayer} selected={selectedPlayer==='self'} disabled={state.finished||Boolean(state.pendingPlayer&&state.pendingPlayer!=='self'&&!state.pendingKong)}/>
       <div className="own-hand" aria-label={`我的手牌${own.hand.length+Number(own.won)}张`}>
         <div className="hand-tiles">{hand.map((tile,i)=><Tile key={`${tile}-${i}`} tile={tile} disabled={Boolean(state.pendingPlayer&&state.pendingPlayer!=='self')} selected={!own.won&&selectedPlayer==='self' && selectedTile===tile} onClick={own.won||state.finished?undefined:()=>onSelectOwnTile(tile)}/>)}
         {drawn && <div className="drawn-tile"><Tile tile={drawn} selected={selectedPlayer==='self' && selectedTile===drawn} onClick={()=>onSelectOwnTile(drawn)} /><span className="drawn-tile-label">{isInitialDealerTurn(state,'self')?'庄家第14张':'新摸牌'}</span></div>}
